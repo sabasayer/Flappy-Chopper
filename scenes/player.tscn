@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://be2ku6c2r10rl"]
+
+[ext_resource type="Script" uid="uid://crmku4icpevve" path="res://scenes/player.gd" id="1_3vyb7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
+size = Vector2(72, 43)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_3vyb7")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0.42352942, 1, 1)
+polygon = PackedVector2Array(-33, -4, -7, -21, 25, -21, 40, -1, 25, 20, -3, 21)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -0.5)
+shape = SubResource("RectangleShape2D_3vyb7")
