@@ -1,3 +1,61 @@
-[gd_scene format=3 uid="uid://dolpb6anay570"]
+[gd_scene load_steps=5 format=3 uid="uid://dolpb6anay570"]
 
-[node name="LevelScene" type="Node2D"]
+[ext_resource type="Script" uid="uid://b1v5uhsakeux1" path="res://scenes/level_scene.gd" id="1_7jjbn"]
+[ext_resource type="PackedScene" uid="uid://be2ku6c2r10rl" path="res://scenes/player.tscn" id="2_uar5l"]
+[ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="3_w3lvy"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uar5l"]
+distance = -2.0
+
+[node name="LevelScene" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_7jjbn")
+player = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource("2_uar5l")]
+position = Vector2(96, 331)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+visible = false
+offset = Vector2(200, 0)
+limit_left = -200
+limit_top = -1000
+limit_right = 10000001
+limit_bottom = 720
+
+[node name="PlayerPosition" type="Marker2D" parent="."]
+position = Vector2(93, 331)
+
+[node name="Ground" type="Area2D" parent="."]
+position = Vector2(-1, 580)
+
+[node name="GroundCollisionShape" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape2D_uar5l")
+metadata/_edit_lock_ = true
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = -1
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(798, 332)
+repeat_size = Vector2(799, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+texture = ExtResource("3_w3lvy")
+region_enabled = true
+region_rect = Rect2(0, 355, 800, 480)
+metadata/_edit_lock_ = true
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+z_index = -1
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(803, 548)
+repeat_size = Vector2(806, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+texture = ExtResource("3_w3lvy")
+region_enabled = true
+region_rect = Rect2(0, 285.81943, 807, 68.18057)
+metadata/_edit_lock_ = true
+
+[connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]
