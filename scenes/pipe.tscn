@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://wwweuxw2f1eh"]
+[gd_scene load_steps=3 format=3 uid="uid://wwweuxw2f1eh"]
 
 [ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="1_8x3ej"]
 [ext_resource type="Script" uid="uid://bk2oip6muanti" path="res://scenes/pipe.gd" id="1_arpqm"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_832ky"]
-size = Vector2(107, 239)
 
 [node name="Pipe" type="Node2D"]
 script = ExtResource("1_arpqm")
@@ -12,12 +9,13 @@ script = ExtResource("1_arpqm")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8x3ej")
 region_enabled = true
-region_rect = Rect2(0.50827026, 1755.8428, 106.31119, 238.91846)
+region_rect = Rect2(0, 1756.9738, 106, 238.02625)
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_832ky")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(4, -2)
+polygon = PackedVector2Array(7, -120, -53, 118, 54, 119)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

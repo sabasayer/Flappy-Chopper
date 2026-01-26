@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+signal player_died()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -21,3 +22,4 @@ func _physics_process(delta: float) -> void:
 
 func on_collision_with_pipe(pipe:Pipe) -> void:
 	print("collision with pipe", pipe)
+	player_died.emit()
