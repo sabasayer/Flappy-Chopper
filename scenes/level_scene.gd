@@ -4,8 +4,8 @@ extends Node2D
 
 @export var player: Player
 @export var pipe_scene: PackedScene
-@export var min_pipe_distance: float = 100
-@export var max_pipe_distance: float = 200
+@export var min_pipe_distance: float = 150
+@export var max_pipe_distance: float = 300
 @export var end_of_level_position: float = 10000
 
 @onready var playerPosition: Marker2D = $PlayerPosition
@@ -37,14 +37,20 @@ func spawn_pipe() -> void:
 	var pipe_position_x = min(pipeSpawnPositionTop.x, pipeSpawnPositionDown.x)
 
 	while pipe_position_x < end_of_level_position:
-		var pipe = pipe_scene.instantiate()
-		pipe.globalPosition.x = pipe_position_x
+		var pipe: Node2D = pipe_scene.instantiate()
+		pipe.global_position.x = pipe_position_x
 		var is_pipe_top = randf() < 0.5
-		if is_pipe_top:
-			pipe.globalPosition.y = pipeSpawnPositionTop.y
-		else:
-			pipe.globalPosition.y = pipeSpawnPositionDown.y
+		var is_pipe_down = randf() < 0.5
 
-		add_child(pipe)
+		if is_pipe_top:
+			pipe.global_position.y = pipeSpawnPositionTop.y
+			pipe.rotate(deg_to_rad(180))
+			add_child(pipe)
+		if is_pipe_down:
+			if is_pipe_top:
+				pipe = pipe.duplicate()
+				pipe.rotate(deg_to_rad(180))
+			pipe.global_position.y = pipeSpawnPositionDown.y
+			add_child(pipe)
 
 		pipe_position_x += randf_range(min_pipe_distance, max_pipe_distance)
