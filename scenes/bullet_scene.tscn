@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c4rmcqahukd76"]
+
+[ext_resource type="Script" uid="uid://cbekadd1hwu0j" path="res://scenes/bullet_scene.gd" id="1_bw2vd"]
+[ext_resource type="Texture2D" uid="uid://knahiknjdmi2" path="res://assets/shooter_sheet.png" id="2_x4051"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ppkx"]
+size = Vector2(54, 13)
+
+[node name="BulletScene" type="Area2D" unique_id=1916605818]
+script = ExtResource("1_bw2vd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1358128261]
+visible = false
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_0ppkx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1739033747]
+rotation = 1.5707964
+texture = ExtResource("2_x4051")
+region_enabled = true
+region_rect = Rect2(858, 230, 9, 54)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1061055296]
+visible = false
+position = Vector2(-7, -1)
+rect = Rect2(-20, -5, 54, 13)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

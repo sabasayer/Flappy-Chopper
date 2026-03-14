@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://be2ku6c2r10rl"]
+[gd_scene format=3 uid="uid://be2ku6c2r10rl"]
 
 [ext_resource type="Script" uid="uid://crmku4icpevve" path="res://scenes/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://blp2yyx8mt1jk" path="res://assets/planes.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://c4rmcqahukd76" path="res://scenes/bullet_scene.tscn" id="2_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(84, 66)
@@ -28,15 +29,21 @@ animations = [{
 "speed": 9.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=816501898 groups=["player"]]
 script = ExtResource("1_3vyb7")
+bullet_scene = ExtResource("2_qhqgy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532242945]
 position = Vector2(-2, -3)
 shape = SubResource("RectangleShape2D_3vyb7")
+metadata/_edit_lock_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=324812359]
 sprite_frames = SubResource("SpriteFrames_qlg0r")
 animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.58336896
+metadata/_edit_lock_ = true
+
+[node name="BulletSpawn" type="Marker2D" parent="." unique_id=1520343583]
+position = Vector2(48, 0)

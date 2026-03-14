@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dolpb6anay570"]
+[gd_scene format=3 uid="uid://dolpb6anay570"]
 
 [ext_resource type="Script" uid="uid://b1v5uhsakeux1" path="res://scenes/level_scene.gd" id="1_7jjbn"]
 [ext_resource type="PackedScene" uid="uid://be2ku6c2r10rl" path="res://scenes/player.tscn" id="2_uar5l"]
@@ -8,15 +8,15 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uar5l"]
 distance = -2.0
 
-[node name="LevelScene" type="Node2D" node_paths=PackedStringArray("player")]
+[node name="LevelScene" type="Node2D" unique_id=1226324035 node_paths=PackedStringArray("player")]
 script = ExtResource("1_7jjbn")
 player = NodePath("Player")
 pipe_scene = ExtResource("4_pipe")
 
-[node name="Player" parent="." instance=ExtResource("2_uar5l")]
+[node name="Player" parent="." unique_id=726765090 instance=ExtResource("2_uar5l")]
 position = Vector2(96, 331)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=292529189]
 visible = false
 offset = Vector2(200, 0)
 limit_left = -200
@@ -24,17 +24,17 @@ limit_top = -139
 limit_right = 10000001
 limit_bottom = 800
 
-[node name="PlayerPosition" type="Marker2D" parent="."]
+[node name="PlayerPosition" type="Marker2D" parent="." unique_id=235143270]
 position = Vector2(93, 331)
 
-[node name="Ground" type="Area2D" parent="."]
+[node name="Ground" type="Area2D" parent="." unique_id=1789624968]
 position = Vector2(239, 812)
 
-[node name="GroundCollisionShape" type="CollisionShape2D" parent="Ground"]
+[node name="GroundCollisionShape" type="CollisionShape2D" parent="Ground" unique_id=735315508]
 shape = SubResource("WorldBoundaryShape2D_uar5l")
 metadata/_edit_lock_ = true
 
-[node name="Parallax2D" type="Parallax2D" parent="."]
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=2125357805]
 z_index = -1
 scale = Vector2(2, 2)
 scroll_scale = Vector2(0.2, 0.2)
@@ -42,13 +42,13 @@ scroll_offset = Vector2(798, 332)
 repeat_size = Vector2(799, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=2008550178]
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 355, 800, 480)
 metadata/_edit_lock_ = true
 
-[node name="Parallax2D2" type="Parallax2D" parent="."]
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=875700519]
 z_index = -1
 scale = Vector2(3, 3)
 scroll_scale = Vector2(0.4, 0.4)
@@ -56,30 +56,30 @@ scroll_offset = Vector2(-1558, 710)
 repeat_size = Vector2(806, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1824310179]
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 285.81943, 807, 68.18057)
 metadata/_edit_lock_ = true
 
-[node name="Parallax2D3" type="Parallax2D" parent="."]
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1809519517]
 z_index = -1
 scale = Vector2(1.2, 1.2)
 scroll_offset = Vector2(-546, 789.00006)
 repeat_size = Vector2(806, 0)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3"]
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=1867768868]
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0.79286194, 144.07974, 806.5774, 68.30141)
 metadata/_edit_lock_ = true
 
-[node name="PipeSpawnMarkerTop" type="Marker2D" parent="."]
-position = Vector2(586, 51)
+[node name="PipeSpawnMarkerTop" type="Marker2D" parent="." unique_id=917322870]
+position = Vector2(586, 3)
 
-[node name="PipeSpawnMarkerDown" type="Marker2D" parent="."]
-position = Vector2(581, 576)
+[node name="PipeSpawnMarkerDown" type="Marker2D" parent="." unique_id=1876987928]
+position = Vector2(574, 647)
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]
