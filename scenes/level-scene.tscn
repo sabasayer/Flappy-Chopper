@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://be2ku6c2r10rl" path="res://scenes/player.tscn" id="2_uar5l"]
 [ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="3_w3lvy"]
 [ext_resource type="PackedScene" uid="uid://wwweuxw2f1eh" path="res://scenes/pipe.tscn" id="4_pipe"]
+[ext_resource type="PackedScene" uid="uid://xa21igoreu70" path="res://scenes/Spawner.tscn" id="5_juwml"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uar5l"]
 distance = -2.0
@@ -75,11 +76,10 @@ region_enabled = true
 region_rect = Rect2(0.79286194, 144.07974, 806.5774, 68.30141)
 metadata/_edit_lock_ = true
 
-[node name="PipeSpawnMarkerTop" type="Marker2D" parent="." unique_id=917322870]
-position = Vector2(586, 3)
+[node name="PipeContainer" type="Node2D" parent="." unique_id=2049394600]
 
-[node name="PipeSpawnMarkerDown" type="Marker2D" parent="." unique_id=1876987928]
-position = Vector2(574, 647)
+[node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container") instance=ExtResource("5_juwml")]
+pipes_container = NodePath("../PipeContainer")
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]

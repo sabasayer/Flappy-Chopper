@@ -1,20 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://wwweuxw2f1eh"]
+[gd_scene format=3 uid="uid://wwweuxw2f1eh"]
 
 [ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="1_8x3ej"]
 [ext_resource type="Script" uid="uid://bk2oip6muanti" path="res://scenes/pipe.gd" id="1_arpqm"]
 
-[node name="Pipe" type="Node2D"]
+[node name="Pipe" type="Node2D" unique_id=1774995692]
 script = ExtResource("1_arpqm")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=963986156]
 texture = ExtResource("1_8x3ej")
 region_enabled = true
 region_rect = Rect2(0, 1756.9738, 106, 238.02625)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=950264106]
 visible = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1607459270]
 position = Vector2(4, -2)
 polygon = PackedVector2Array(7, -120, -53, 118, 54, 119)
 
