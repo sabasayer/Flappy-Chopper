@@ -9,6 +9,8 @@ class_name PipePair extends Node2D
 @onready var top_pipe: Pipe = $TopPipe
 @onready var bottom_pipe: Pipe = $BottomPipe
 
+var scored = false
+
 var player: Player:
 	get():
 		return get_tree().get_first_node_in_group("player") as Player 
@@ -33,8 +35,8 @@ func _ready() -> void:
 func setup(gap_height: int, gap_y: int):
 	if gap_y < gap_padding:
 		gap_y = gap_padding
-	if gap_y > gap_y_max:
-		gap_y = gap_y_max
+	if gap_y + gap_height > gap_y_max:
+		gap_y = gap_y_max - gap_height
 	
 	var top_pipe_target_size = gap_y
 	var top_pipe_size = top_pipe.get_size()
@@ -50,4 +52,13 @@ func setup(gap_height: int, gap_y: int):
 	bottom_pipe.scale.y = bottom_target_size / bottom_pipe_size.y
 	bottom_pipe.position.y = screen_height - bottom_target_size / 2
 	
-	
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if scored:
+		return
+	if body is Player:
+		GameManager.add_score(1)
+		scored = true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

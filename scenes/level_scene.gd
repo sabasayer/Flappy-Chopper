@@ -24,6 +24,7 @@ func _on_ground_area_entered(_body: Node2D) -> void:
 	restart_level()
 
 func _on_player_player_died() -> void:
+	GameManager.reset_score()
 	restart_level()
 
 func _process(delta: float) -> void:

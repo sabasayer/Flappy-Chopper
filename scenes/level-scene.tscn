@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="3_w3lvy"]
 [ext_resource type="PackedScene" uid="uid://wwweuxw2f1eh" path="res://scenes/pipe.tscn" id="4_pipe"]
 [ext_resource type="PackedScene" uid="uid://xa21igoreu70" path="res://scenes/Spawner.tscn" id="5_juwml"]
+[ext_resource type="PackedScene" uid="uid://wdmuxjwrmdea" path="res://scenes/score_ui.tscn" id="6_yn5lr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uar5l"]
 distance = -2.0
@@ -21,9 +22,9 @@ position = Vector2(96, 331)
 visible = false
 offset = Vector2(200, 0)
 limit_left = -200
-limit_top = -139
+limit_top = 0
 limit_right = 10000001
-limit_bottom = 800
+limit_bottom = 648
 
 [node name="PlayerPosition" type="Marker2D" parent="." unique_id=235143270]
 position = Vector2(93, 331)
@@ -37,7 +38,7 @@ metadata/_edit_lock_ = true
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=2125357805]
 z_index = -1
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 scroll_scale = Vector2(0.2, 0.2)
 scroll_offset = Vector2(798, 332)
 repeat_size = Vector2(799, 0)
@@ -53,7 +54,7 @@ metadata/_edit_lock_ = true
 z_index = -1
 scale = Vector2(3, 3)
 scroll_scale = Vector2(0.4, 0.4)
-scroll_offset = Vector2(-1558, 710)
+scroll_offset = Vector2(-1536.0001, 569)
 repeat_size = Vector2(806, 0)
 repeat_times = 3
 
@@ -61,25 +62,13 @@ repeat_times = 3
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 285.81943, 807, 68.18057)
-metadata/_edit_lock_ = true
-
-[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1809519517]
-z_index = -1
-scale = Vector2(1.2, 1.2)
-scroll_offset = Vector2(-546, 789.00006)
-repeat_size = Vector2(806, 0)
-repeat_times = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=1867768868]
-texture = ExtResource("3_w3lvy")
-region_enabled = true
-region_rect = Rect2(0.79286194, 144.07974, 806.5774, 68.30141)
-metadata/_edit_lock_ = true
 
 [node name="PipeContainer" type="Node2D" parent="." unique_id=2049394600]
 
 [node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container") instance=ExtResource("5_juwml")]
 pipes_container = NodePath("../PipeContainer")
+
+[node name="ScoreUI" parent="." unique_id=397794448 instance=ExtResource("6_yn5lr")]
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]

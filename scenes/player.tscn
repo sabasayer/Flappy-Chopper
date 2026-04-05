@@ -30,6 +30,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=816501898 groups=["player"]]
+collision_mask = 3
 script = ExtResource("1_3vyb7")
 bullet_scene = ExtResource("2_qhqgy")
 

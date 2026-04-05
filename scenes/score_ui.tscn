@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://wdmuxjwrmdea"]
+
+[ext_resource type="Script" uid="uid://b31exmjr5kh0m" path="res://scenes/score_ui.gd" id="1_hoy1o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8tfrv"]
+font_color = Color(0.3647059, 0.3647059, 0.83137256, 1)
+outline_size = 1
+
+[node name="ScoreUI" type="CanvasLayer" unique_id=397794448]
+script = ExtResource("1_hoy1o")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1243324824]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Placeholder"
+label_settings = SubResource("LabelSettings_8tfrv")
