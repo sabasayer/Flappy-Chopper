@@ -25,5 +25,8 @@ shape = SubResource("RectangleShape2D_khfn5")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=393731295]
 rect = Rect2(-64, -117, 89, 554)
 
+[node name="EnemyMarker" type="Marker2D" parent="." unique_id=949377114]
+position = Vector2(0, 146)
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

@@ -26,5 +26,4 @@ position = Vector2(-7, -1)
 rect = Rect2(-20, -5, 54, 13)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

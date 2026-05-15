@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://crmku4icpevve" path="res://scenes/player.gd" id="1_3vyb7"]
 [ext_resource type="Texture2D" uid="uid://blp2yyx8mt1jk" path="res://assets/planes.png" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://c4rmcqahukd76" path="res://scenes/bullet_scene.tscn" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://ch7brteh48svk" path="res://scenes/health-component.gd" id="4_dqkch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(84, 66)
@@ -48,3 +49,10 @@ metadata/_edit_lock_ = true
 
 [node name="BulletSpawn" type="Marker2D" parent="." unique_id=1520343583]
 position = Vector2(48, 0)
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1226408465]
+script = ExtResource("4_dqkch")
+max_health = 2
+metadata/_custom_type_script = "uid://ch7brteh48svk"
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

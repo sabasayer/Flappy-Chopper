@@ -2,6 +2,7 @@ class_name Bullet
 
 extends Area2D
 
+@export var damage:int = 1
 var speed:int = 600
 
 func _physics_process(delta: float) -> void:
@@ -9,13 +10,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	print("area entered",area)
-	queue_free()
-
-func _on_body_exited(body: Node2D) -> void:
-	if(body is Player):
-		return
-	print("body hit",body)
+	HealthUtils.trigger_take_damege_on_health_component(area,damage)
 	
 	queue_free()
 

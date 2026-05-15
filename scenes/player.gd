@@ -30,10 +30,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func on_collision_with_pipe(pipe:Pipe) -> void:
-	print("collision with pipe", pipe)
-	player_died.emit()
-
 func on_jump(delta: float):
 	velocity.y = JUMP_VELOCITY
 	
@@ -44,3 +40,7 @@ func on_jump(delta: float):
 	
 func get_size():
 	return (collision_shape_2d.shape as RectangleShape2D).size
+
+
+func _on_health_component_died() -> void:
+	player_died.emit()

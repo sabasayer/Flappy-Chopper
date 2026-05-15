@@ -8,6 +8,7 @@ class_name PipePair extends Node2D
 
 @onready var top_pipe: Pipe = $TopPipe
 @onready var bottom_pipe: Pipe = $BottomPipe
+@onready var enemy_marker: Marker2D = $EnemyMarker
 
 var scored = false
 
@@ -24,15 +25,15 @@ var gap_y_max:
 		return screen_height - gap_padding
 
 func _ready() -> void:
+	setup(gap_height,gap_y)
+
+func setup(gap_height: int = 0, gap_y: int = 0):
 	if !gap_y:
 		gap_y = randi_range(gap_padding,gap_y_max)
 		
 	if !gap_height:
 		gap_height = randi_range(gap_height_min, gap_height_max)
 		
-	setup(gap_height,gap_y)
-
-func setup(gap_height: int, gap_y: int):
 	if gap_y < gap_padding:
 		gap_y = gap_padding
 	if gap_y + gap_height > gap_y_max:
@@ -51,6 +52,8 @@ func setup(gap_height: int, gap_y: int):
 		
 	bottom_pipe.scale.y = bottom_target_size / bottom_pipe_size.y
 	bottom_pipe.position.y = screen_height - bottom_target_size / 2
+	
+	enemy_marker.position.y =  (gap_y + gap_height) / 2 
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if scored:
