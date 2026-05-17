@@ -65,8 +65,11 @@ region_rect = Rect2(0, 285.81943, 807, 68.18057)
 
 [node name="PipeContainer" type="Node2D" parent="." unique_id=2049394600]
 
-[node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container") instance=ExtResource("5_juwml")]
+[node name="EnemyContainer" type="Node2D" parent="." unique_id=263046732]
+
+[node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container", "enemy_container") instance=ExtResource("5_juwml")]
 pipes_container = NodePath("../PipeContainer")
+enemy_container = NodePath("../EnemyContainer")
 
 [node name="ScoreUI" parent="." unique_id=397794448 instance=ExtResource("6_yn5lr")]
 

@@ -55,4 +55,5 @@ script = ExtResource("4_dqkch")
 max_health = 2
 metadata/_custom_type_script = "uid://ch7brteh48svk"
 
+[connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

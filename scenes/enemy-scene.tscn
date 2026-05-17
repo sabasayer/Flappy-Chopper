@@ -12,7 +12,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("VisualContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -29,7 +29,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("VisualContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -45,19 +45,21 @@ _data = {
 &"idle": SubResource("Animation_ycel5")
 }
 
-[node name="Enemy" type="Area2D" unique_id=2084074567]
+[node name="Enemy" type="Node2D" unique_id=2084074567]
 script = ExtResource("1_1cvog")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1782939972]
+[node name="VisualContainer" type="Area2D" parent="." unique_id=722797814]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisualContainer" unique_id=2008690999]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_pb3lf")
+
+[node name="Sprite2D" type="Sprite2D" parent="VisualContainer" unique_id=1782939972]
 texture = ExtResource("2_ll33l")
 region_enabled = true
 region_rect = Rect2(445, 0, 89, 91)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2008690999]
-position = Vector2(-1, 1)
-shape = SubResource("CircleShape2D_pb3lf")
-
-[node name="HealthComponent" type="Node" parent="." unique_id=1207080262]
+[node name="HealthComponent" type="Node" parent="VisualContainer" unique_id=1207080262]
 script = ExtResource("3_ycel5")
 metadata/_custom_type_script = "uid://ch7brteh48svk"
 
@@ -65,5 +67,5 @@ metadata/_custom_type_script = "uid://ch7brteh48svk"
 libraries/ = SubResource("AnimationLibrary_pb3lf")
 autoplay = &"idle"
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="body_entered" from="VisualContainer" to="." method="_on_visual_container_body_entered"]
+[connection signal="died" from="VisualContainer/HealthComponent" to="." method="_on_health_component_died"]

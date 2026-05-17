@@ -53,7 +53,7 @@ func setup(gap_height: int = 0, gap_y: int = 0):
 	bottom_pipe.scale.y = bottom_target_size / bottom_pipe_size.y
 	bottom_pipe.position.y = screen_height - bottom_target_size / 2
 	
-	enemy_marker.position.y =  (gap_y + gap_height) / 2 
+	enemy_marker.position.y = (gap_y + gap_height) / 2 
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if scored:

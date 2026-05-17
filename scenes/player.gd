@@ -1,17 +1,24 @@
 class_name Player
 extends CharacterBody2D
 
-const SPEED = 200.0
-const JUMP_VELOCITY = -400.0
+enum PLAYER_STATE {
+	Idle,
+	Hurt,
+	Dying
+}
 
 signal player_died()
 
+@export var speed: int = 200
+@export var jump_velocity: int = -400
 @export var bullet_speed: int = 600
 @export var bullet_scene: PackedScene
 @export var no_gravity: bool
 
 @onready var bullet_spawn: Marker2D = $BulletSpawn
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+
+var player_state:PLAYER_STATE = PLAYER_STATE.Idle
 
 func _ready() -> void:
 	assert(bullet_scene != null, "Bullet scene should be assigned")
@@ -26,12 +33,12 @@ func _physics_process(delta: float) -> void:
 		on_jump(delta)
 
 	# Constant horizontal speedgap_height
-	velocity.x = SPEED
+	velocity.x = speed
 
 	move_and_slide()
 
 func on_jump(delta: float):
-	velocity.y = JUMP_VELOCITY
+	velocity.y = jump_velocity
 	
 	var bullet_instance := bullet_scene.instantiate() as Bullet
 	bullet_instance.speed = bullet_speed
@@ -41,6 +48,19 @@ func on_jump(delta: float):
 func get_size():
 	return (collision_shape_2d.shape as RectangleShape2D).size
 
+func state_to_hurt():
+	if player_state != PLAYER_STATE.Idle:
+		return
+		
+	player_state = PLAYER_STATE.Hurt
+	run_hurt_animation()
+	
+func run_hurt_animation():
+	pass
 
 func _on_health_component_died() -> void:
 	player_died.emit()
+
+
+func _on_health_component_damaged(amount: int) -> void:
+	pass # Replace with function body.
