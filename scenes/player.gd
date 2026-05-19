@@ -14,9 +14,12 @@ signal player_died()
 @export var bullet_speed: int = 600
 @export var bullet_scene: PackedScene
 @export var no_gravity: bool
+@export var camera: CameraShakable
 
 @onready var bullet_spawn: Marker2D = $BulletSpawn
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hurt_particles: GPUParticles2D = $HurtParticles
 
 var player_state:PLAYER_STATE = PLAYER_STATE.Idle
 
@@ -48,19 +51,45 @@ func on_jump(delta: float):
 func get_size():
 	return (collision_shape_2d.shape as RectangleShape2D).size
 
-func state_to_hurt():
+func state_to_hurt(hit_info:HitInfo):
 	if player_state != PLAYER_STATE.Idle:
 		return
 		
 	player_state = PLAYER_STATE.Hurt
-	run_hurt_animation()
+	run_hurt_animation(hit_info)
 	
-func run_hurt_animation():
-	pass
+func run_hurt_animation(hit_info:HitInfo):
+	camera.shake()
+	flash_animation()
+	squash_animation()
+	run_hurt_particles(hit_info)
+	EffectUtils.freeze_frame(0.06,self)
+	
+# use the hit info to set the particle material direction to opposite of the 
+func run_hurt_particles(hit_info:HitInfo):
+	var particle_material = (hurt_particles.process_material as ParticleProcessMaterial)
+	particle_material.direction = Vector3(hit_info.direction.x, hit_info.direction.y, 0)
+	hurt_particles.restart()
+	hurt_particles.emitting = true
+
+
+func flash_animation():
+	animated_sprite_2d.modulate = Color.RED
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite_2d,"modulate",Color.WHITE,0.5).set_trans(Tween.TRANS_SINE)
+	
+func squash_animation():
+	animated_sprite_2d.scale = Vector2(0.9, 1)
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite_2d,"scale",Vector2.ONE,0.5).set_trans(Tween.TRANS_SINE)
+	tween.tween_callback(on_hurt_animation_end)
+	
+func on_hurt_animation_end():
+	player_state = PLAYER_STATE.Idle
 
 func _on_health_component_died() -> void:
 	player_died.emit()
 
 
-func _on_health_component_damaged(amount: int) -> void:
-	pass # Replace with function body.
+func _on_health_component_damaged(hit_info:HitInfo) -> void:
+	state_to_hurt(hit_info)

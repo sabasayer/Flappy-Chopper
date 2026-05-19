@@ -10,7 +10,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	HealthUtils.trigger_take_damege_on_health_component(area,damage)
+	HealthUtils.trigger_take_damege_on_health_component(area,self,damage)
 	
 	queue_free()
 

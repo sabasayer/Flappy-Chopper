@@ -12,4 +12,4 @@ func die() -> void:
 	queue_free()
 
 func _on_visual_container_body_entered(body: Node2D) -> void:
-	HealthUtils.trigger_take_damege_on_health_component(body, damage)
+	HealthUtils.trigger_take_damege_on_health_component(body, self, damage)
