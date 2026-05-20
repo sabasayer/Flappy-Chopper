@@ -4,7 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://blp2yyx8mt1jk" path="res://assets/planes.png" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://c4rmcqahukd76" path="res://scenes/bullet_scene.tscn" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://ch7brteh48svk" path="res://scenes/health-component.gd" id="4_dqkch"]
-[ext_resource type="Texture2D" uid="uid://dwssyttjx3egd" path="res://assets/star_08.png" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://wil41ife5wlm" path="res://assets/smoke_01.png" id="6_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://ct7slprq1libr" path="res://assets/spark_05.png" id="7_fjrip"]
+[ext_resource type="PackedScene" uid="uid://qkf2k7lx1ma0" path="res://scenes/hurt_spark_particles.tscn" id="7_smehm"]
+[ext_resource type="Shader" uid="uid://d4kg7gfcfeqyt" path="res://scenes/shoot_particle.gdshader" id="8_shoot"]
+[ext_resource type="Script" uid="uid://bdmjc776gx642" path="res://scenes/hurt_spark_particles.gd" id="8_ur7pv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(84, 66)
@@ -31,16 +35,56 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
-lifetime_randomness = 0.17
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shoot"]
+shader = ExtResource("8_shoot")
+shader_parameter/fan_half_angle_deg = 45.0
+shader_parameter/speed = 74.0
+shader_parameter/spawn_half_height = 6.0
+shader_parameter/particle_scale = 0.034000001615
+shader_parameter/particle_count = 4
+shader_parameter/spawn_jitter = 2.5
+shader_parameter/angle_jitter_deg = 14.0
+shader_parameter/speed_jitter = 0.3
+shader_parameter/scale_jitter = 0.25
+
+[sub_resource type="Curve" id="Curve_fjrip"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_smehm"]
+curve = SubResource("Curve_fjrip")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ur7pv"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+spread = 180.0
+initial_velocity_min = 58.629997
+initial_velocity_max = 72.42
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 13.0999975
+linear_accel_max = 13.0999975
+scale_min = 0.049999997
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_smehm")
+
+[sub_resource type="Curve" id="Curve_smehm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ur7pv"]
+curve = SubResource("Curve_smehm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smehm"]
 particle_flag_disable_z = true
 direction = Vector3(-1, 0, 0)
-spread = 45.986
-initial_velocity_min = 151.72
-initial_velocity_max = 234.48
-gravity = Vector3(0, 98, 0)
-scale_min = 0.02
-scale_max = 0.04
+spread = 30.0
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.07
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_ur7pv")
 
 [node name="Player" type="CharacterBody2D" unique_id=816501898 groups=["player"]]
 collision_mask = 3
@@ -61,8 +105,19 @@ frame_progress = 0.58336896
 metadata/_edit_lock_ = true
 
 [node name="BulletSpawn" type="Marker2D" parent="." unique_id=1520343583]
-visible = false
 position = Vector2(48, 0)
+
+[node name="ShootParticle" type="GPUParticles2D" parent="BulletSpawn" unique_id=1045108068]
+modulate = Color(0.9640575, 0.2748526, 0.11431668, 1)
+position = Vector2(0, 3)
+emitting = false
+amount = 4
+texture = ExtResource("7_fjrip")
+lifetime = 0.09999999999999999
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ShaderMaterial_shoot")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1226408465]
 script = ExtResource("4_dqkch")
@@ -71,16 +126,25 @@ metadata/_custom_type_script = "uid://ch7brteh48svk"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=84006788]
 
-[node name="HurtParticles" type="GPUParticles2D" parent="." unique_id=1385074191]
-modulate = Color(1, 0.5372549, 0.043137256, 1)
+[node name="HurtSparkParticles" parent="." unique_id=1722693723 instance=ExtResource("7_smehm")]
 position = Vector2(-2, 0)
+script = ExtResource("8_ur7pv")
+
+[node name="HurtSmokeParticles" type="GPUParticles2D" parent="." unique_id=45715551]
+modulate = Color(0.427493, 0.42749307, 0.42749307, 1)
 emitting = false
-amount = 20
-texture = ExtResource("5_qlg0r")
-lifetime = 0.3
+texture = ExtResource("6_tuyoq")
+lifetime = 0.2
 one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_tuyoq")
+process_material = SubResource("ParticleProcessMaterial_ur7pv")
+
+[node name="IdleSmokeParticles" type="GPUParticles2D" parent="." unique_id=1637410080]
+modulate = Color(0.92941177, 0.92941177, 0.92941177, 0.61960787)
+position = Vector2(30, 3)
+amount = 3
+texture = ExtResource("6_tuyoq")
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_smehm")
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

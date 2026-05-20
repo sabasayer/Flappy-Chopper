@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://qkf2k7lx1ma0"]
+
+[ext_resource type="Texture2D" uid="uid://dwssyttjx3egd" path="res://assets/star_08.png" id="1_kylcq"]
+[ext_resource type="Script" uid="uid://bdmjc776gx642" path="res://scenes/hurt_spark_particles.gd" id="2_duxjy"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
+lifetime_randomness = 0.17
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-10, 0, 0)
+direction = Vector3(-1, 0, 0)
+spread = 45.986
+initial_velocity_min = 455.16998
+initial_velocity_max = 537.93
+gravity = Vector3(0, 98, 0)
+scale_min = 0.049999997
+scale_max = 0.049999997
+
+[node name="HurtSparkParticles" type="GPUParticles2D" unique_id=1722693723]
+modulate = Color(1, 0, 0, 1)
+emitting = false
+amount = 10
+texture = ExtResource("1_kylcq")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+script = ExtResource("2_duxjy")

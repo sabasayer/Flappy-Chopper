@@ -10,7 +10,9 @@ outline_size = 1
 script = ExtResource("1_hoy1o")
 
 [node name="ScoreLabel" type="Label" parent="." unique_id=1243324824]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 17.0
+offset_top = 12.0
+offset_right = 109.0
+offset_bottom = 35.0
 text = "Placeholder"
 label_settings = SubResource("LabelSettings_8tfrv")

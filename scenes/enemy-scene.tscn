@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dxywraejjnirw" path="res://scenes/enemy_scene.gd" id="1_1cvog"]
 [ext_resource type="Texture2D" uid="uid://knahiknjdmi2" path="res://assets/shooter_sheet.png" id="2_ll33l"]
 [ext_resource type="Script" uid="uid://ch7brteh48svk" path="res://scenes/health-component.gd" id="3_ycel5"]
+[ext_resource type="PackedScene" uid="uid://qkf2k7lx1ma0" path="res://scenes/hurt_spark_particles.tscn" id="4_ycel5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pb3lf"]
 radius = 47.042534
@@ -46,6 +47,7 @@ _data = {
 }
 
 [node name="Enemy" type="Node2D" unique_id=2084074567]
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_1cvog")
 
 [node name="VisualContainer" type="Area2D" parent="." unique_id=722797814]
@@ -61,11 +63,15 @@ region_rect = Rect2(445, 0, 89, 91)
 
 [node name="HealthComponent" type="Node" parent="VisualContainer" unique_id=1207080262]
 script = ExtResource("3_ycel5")
+max_health = 2
 metadata/_custom_type_script = "uid://ch7brteh48svk"
+
+[node name="HurtSparkParticles" parent="VisualContainer" unique_id=1722693723 instance=ExtResource("4_ycel5")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=536510657]
 libraries/ = SubResource("AnimationLibrary_pb3lf")
 autoplay = &"idle"
 
 [connection signal="body_entered" from="VisualContainer" to="." method="_on_visual_container_body_entered"]
+[connection signal="damaged" from="VisualContainer/HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="VisualContainer/HealthComponent" to="." method="_on_health_component_died"]

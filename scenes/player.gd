@@ -19,12 +19,16 @@ signal player_died()
 @onready var bullet_spawn: Marker2D = $BulletSpawn
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hurt_particles: GPUParticles2D = $HurtParticles
+@onready var hurt_spark_particles: HurtSparkParticle = $HurtSparkParticles
+@onready var hurt_smoke_particles: GPUParticles2D = $HurtSmokeParticles
+@onready var shoot_particles: GPUParticles2D = $BulletSpawn/ShootParticle
 
 var player_state:PLAYER_STATE = PLAYER_STATE.Idle
 
 func _ready() -> void:
 	assert(bullet_scene != null, "Bullet scene should be assigned")
+	var shoot_material := shoot_particles.process_material as ShaderMaterial
+	shoot_material.set_shader_parameter("particle_count", shoot_particles.amount)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -45,9 +49,15 @@ func on_jump(delta: float):
 	
 	var bullet_instance := bullet_scene.instantiate() as Bullet
 	bullet_instance.speed = bullet_speed
-	bullet_instance.global_position = bullet_spawn.global_position
 	get_tree().current_scene.add_child(bullet_instance)
-	
+	bullet_instance.global_position = bullet_spawn.global_position
+	run_shoot_particles()
+	camera.shake(0.2)
+
+func run_shoot_particles() -> void:
+	shoot_particles.restart()
+	shoot_particles.emitting = true
+
 func get_size():
 	return (collision_shape_2d.shape as RectangleShape2D).size
 
@@ -67,11 +77,12 @@ func run_hurt_animation(hit_info:HitInfo):
 	
 # use the hit info to set the particle material direction to opposite of the 
 func run_hurt_particles(hit_info:HitInfo):
-	var particle_material = (hurt_particles.process_material as ParticleProcessMaterial)
-	particle_material.direction = Vector3(hit_info.direction.x, hit_info.direction.y, 0)
-	hurt_particles.restart()
-	hurt_particles.emitting = true
-
+	hurt_spark_particles.run_hurt_particles(hit_info)
+	
+	await get_tree().create_timer(0.05).timeout
+	hurt_smoke_particles.restart()
+	hurt_smoke_particles.emitting = true
+	
 
 func flash_animation():
 	animated_sprite_2d.modulate = Color.RED
