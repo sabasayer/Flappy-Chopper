@@ -4,9 +4,51 @@
 [ext_resource type="Texture2D" uid="uid://knahiknjdmi2" path="res://assets/shooter_sheet.png" id="2_ll33l"]
 [ext_resource type="Script" uid="uid://ch7brteh48svk" path="res://scenes/health-component.gd" id="3_ycel5"]
 [ext_resource type="PackedScene" uid="uid://qkf2k7lx1ma0" path="res://scenes/hurt_spark_particles.tscn" id="4_ycel5"]
+[ext_resource type="Texture2D" uid="uid://wil41ife5wlm" path="res://assets/smoke_01.png" id="5_pb3lf"]
+[ext_resource type="Texture2D" uid="uid://ct7slprq1libr" path="res://assets/spark_05.png" id="6_mydin"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pb3lf"]
 radius = 47.042534
+
+[sub_resource type="Curve" id="Curve_mydin"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_a5802"]
+curve = SubResource("Curve_mydin")
+
+[sub_resource type="Curve" id="Curve_pb3lf"]
+_data = [Vector2(0, 0.28991604), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mydin"]
+curve = SubResource("Curve_pb3lf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mydin"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 103.439995
+initial_velocity_max = 148.27
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 2.7599976
+radial_accel_max = 2.7599976
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_mydin")
+alpha_curve = SubResource("CurveTexture_a5802")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a5802"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 258.2
+spread = 180.0
+initial_velocity_min = 217.23999
+initial_velocity_max = 217.23999
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 5.5199976
+radial_accel_max = 6.8999977
+scale_min = 0.099999994
+scale_max = 0.099999994
 
 [sub_resource type="Animation" id="Animation_ll33l"]
 length = 0.001
@@ -63,14 +105,29 @@ region_rect = Rect2(445, 0, 89, 91)
 
 [node name="HealthComponent" type="Node" parent="VisualContainer" unique_id=1207080262]
 script = ExtResource("3_ycel5")
-max_health = 2
+max_health = 1
 metadata/_custom_type_script = "uid://ch7brteh48svk"
 
 [node name="HurtSparkParticles" parent="VisualContainer" unique_id=1722693723 instance=ExtResource("4_ycel5")]
 
+[node name="SmokeExplosionParticles" type="GPUParticles2D" parent="VisualContainer" unique_id=366830721]
+emitting = false
+amount = 15
+texture = ExtResource("5_pb3lf")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_mydin")
+
+[node name="SparkExplosionParticles" type="GPUParticles2D" parent="VisualContainer" unique_id=111004493]
+emitting = false
+texture = ExtResource("6_mydin")
+lifetime = 0.24000000000000002
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_a5802")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=536510657]
 libraries/ = SubResource("AnimationLibrary_pb3lf")
-autoplay = &"idle"
 
 [connection signal="body_entered" from="VisualContainer" to="." method="_on_visual_container_body_entered"]
 [connection signal="damaged" from="VisualContainer/HealthComponent" to="." method="_on_health_component_damaged"]

@@ -9,8 +9,8 @@ enum PLAYER_STATE {
 
 signal player_died()
 
-@export var speed: int = 200
-@export var jump_velocity: int = -400
+@export var speed: int = 150
+@export var jump_velocity: int = -350
 @export var bullet_speed: int = 600
 @export var bullet_scene: PackedScene
 @export var no_gravity: bool
@@ -22,6 +22,9 @@ signal player_died()
 @onready var hurt_spark_particles: HurtSparkParticle = $HurtSparkParticles
 @onready var hurt_smoke_particles: GPUParticles2D = $HurtSmokeParticles
 @onready var shoot_particles: GPUParticles2D = $BulletSpawn/ShootParticle
+@onready var explosion_smoke_particles: GPUParticles2D = $ExplosionSmokeParticles
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var explosion_spark_particle: GPUParticles2D = $ExplosionSparkParticle
 
 var player_state:PLAYER_STATE = PLAYER_STATE.Idle
 
@@ -31,6 +34,9 @@ func _ready() -> void:
 	shoot_material.set_shader_parameter("particle_count", shoot_particles.amount)
 
 func _physics_process(delta: float) -> void:
+	if player_state == PLAYER_STATE.Dying:
+		return
+		
 	# Add the gravity.
 	if not no_gravity:
 		velocity += get_gravity() * delta
@@ -45,6 +51,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func on_jump(delta: float):
+	if player_state == PLAYER_STATE.Dying:
+		return
+		
 	velocity.y = jump_velocity
 	
 	var bullet_instance := bullet_scene.instantiate() as Bullet
@@ -98,9 +107,29 @@ func squash_animation():
 func on_hurt_animation_end():
 	player_state = PLAYER_STATE.Idle
 
-func _on_health_component_died() -> void:
-	player_died.emit()
-
+func _on_health_component_died(hit_info:HitInfo) -> void:
+	state_to_dying(hit_info)
 
 func _on_health_component_damaged(hit_info:HitInfo) -> void:
 	state_to_hurt(hit_info)
+
+func state_to_dying(hit_info:HitInfo):
+	player_state = PLAYER_STATE.Dying
+	collision_shape_2d.set_deferred("disabled",true)
+	animation_player.pause()
+	camera.shake(2.0)
+	explosion_smoke_particles.emitting = true
+	explosion_spark_particle.emitting = true
+	await scale_and_fade_animation().finished
+	state_to_die()
+	
+func scale_and_fade_animation():
+	var tween := get_tree().create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(animated_sprite_2d, "modulate", Color.TRANSPARENT, 1.0).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(animated_sprite_2d, "scale", Vector2(1.4,1.4),1.0).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(animated_sprite_2d,"rotation",deg_to_rad(90),1.0).set_trans(Tween.TRANS_LINEAR)
+	return tween
+	
+func state_to_die():
+	player_died.emit()

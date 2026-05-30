@@ -1,6 +1,6 @@
 class_name HealthComponent extends Node
 
-signal died()
+signal died(hit_info:HitInfo)
 signal damaged(hit_info:HitInfo)
 
 @export var max_health:int = 1
@@ -13,9 +13,8 @@ func _ready() -> void:
 func take_damage(hit_info:HitInfo):
 	print("take damage: ", hit_info)
 	health -= hit_info.damage
-	damaged.emit(hit_info)
 	if health <= 0:
-		die()
+		died.emit(hit_info)
+	else:
+		damaged.emit(hit_info)
 		
-func die():
-	died.emit()

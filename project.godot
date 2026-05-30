@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*uid://daufpqjtca2tu"
+DifficultyManager="*uid://gbjrwvuhsx8o"
 
 [display]
 

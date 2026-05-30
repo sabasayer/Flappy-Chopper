@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ct7slprq1libr" path="res://assets/spark_05.png" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://qkf2k7lx1ma0" path="res://scenes/hurt_spark_particles.tscn" id="7_smehm"]
 [ext_resource type="Shader" uid="uid://d4kg7gfcfeqyt" path="res://scenes/shoot_particle.gdshader" id="8_shoot"]
-[ext_resource type="Script" uid="uid://bdmjc776gx642" path="res://scenes/hurt_spark_particles.gd" id="8_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://c401u85tlfu0y" path="res://assets/spark_02.png" id="9_ur7pv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(84, 66)
@@ -86,6 +86,44 @@ scale_min = 0.07
 scale_max = 0.099999994
 scale_curve = SubResource("CurveTexture_ur7pv")
 
+[sub_resource type="Curve" id="Curve_ur7pv"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1806724), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y4r1p"]
+curve = SubResource("Curve_ur7pv")
+
+[sub_resource type="Curve" id="Curve_d2wvv"]
+_data = [Vector2(0, 0.28991604), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3v2ag"]
+curve = SubResource("Curve_d2wvv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jej6c"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 64.02
+initial_velocity_max = 166.58
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 5.5199976
+radial_accel_max = 19.199997
+scale_min = 0.099999994
+scale_max = 0.29999998
+scale_curve = SubResource("CurveTexture_3v2ag")
+alpha_curve = SubResource("CurveTexture_y4r1p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y4r1p"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 255.17
+initial_velocity_max = 344.83
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 10.339997
+radial_accel_max = 10.339997
+scale_min = 0.099999994
+scale_max = 0.19999999
+
 [node name="Player" type="CharacterBody2D" unique_id=816501898 groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_3vyb7")
@@ -121,14 +159,13 @@ process_material = SubResource("ShaderMaterial_shoot")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1226408465]
 script = ExtResource("4_dqkch")
-max_health = 100
+max_health = 2
 metadata/_custom_type_script = "uid://ch7brteh48svk"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=84006788]
 
 [node name="HurtSparkParticles" parent="." unique_id=1722693723 instance=ExtResource("7_smehm")]
 position = Vector2(-2, 0)
-script = ExtResource("8_ur7pv")
 
 [node name="HurtSmokeParticles" type="GPUParticles2D" parent="." unique_id=45715551]
 modulate = Color(0.427493, 0.42749307, 0.42749307, 1)
@@ -145,6 +182,24 @@ amount = 3
 texture = ExtResource("6_tuyoq")
 lifetime = 0.6
 process_material = SubResource("ParticleProcessMaterial_smehm")
+
+[node name="ExplosionSmokeParticles" type="GPUParticles2D" parent="." unique_id=1028439011]
+emitting = false
+amount = 16
+texture = ExtResource("6_tuyoq")
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jej6c")
+
+[node name="ExplosionSparkParticle" type="GPUParticles2D" parent="." unique_id=1903353864]
+emitting = false
+amount = 10
+texture = ExtResource("9_ur7pv")
+lifetime = 0.16
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_y4r1p")
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
