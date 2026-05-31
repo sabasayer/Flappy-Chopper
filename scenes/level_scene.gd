@@ -21,11 +21,10 @@ func reset_player_position() -> void:
 
 func _on_ground_area_entered(_body: Node2D) -> void:
 	print("ground entered")
-	restart_level()
+	GameManager.game_over()
 
 func _on_player_player_died() -> void:
-	GameManager.reset_score()
-	restart_level()
+	GameManager.game_over()
 
 func _process(delta: float) -> void:
 	spawner.check_and_spawn()

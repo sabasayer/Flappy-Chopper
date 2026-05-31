@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cc1tpjy24sh3w"]
+
+[ext_resource type="PackedScene" uid="uid://di23hmikmx5ln" path="res://scenes/score_scene.tscn" id="1_64dwf"]
+[ext_resource type="Script" uid="uid://ywaptyhpjhsl" path="res://scenes/game_over_scene.gd" id="1_ny7m6"]
+
+[node name="GameOverScene" type="CanvasLayer" unique_id=1905308075]
+script = ExtResource("1_ny7m6")
+
+[node name="ScoreScene" parent="." unique_id=974661218 instance=ExtResource("1_64dwf")]
+
+[node name="Label" type="Label" parent="." unique_id=25743347]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -99.0
+offset_right = 104.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Over
+Press any button to restart"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=731870467]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -266.0
+offset_right = 4.0
+offset_bottom = -258.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Exit Game"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

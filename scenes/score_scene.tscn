@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://di23hmikmx5ln"]
+
+[ext_resource type="Script" uid="uid://c7opa3yjiaq5u" path="res://scenes/score_scene.gd" id="1_jn2l2"]
+
+[sub_resource type="Animation" id="Animation_jn2l2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/Score:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/Score:theme_override_font_sizes/font_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [22]
+}
+
+[sub_resource type="Animation" id="Animation_tyil2"]
+resource_name = "score_change"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/Score:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/Score:theme_override_font_sizes/font_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 0.43527535, 1),
+"update": 0,
+"values": [22, 35, 22]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eebjh"]
+_data = {
+&"RESET": SubResource("Animation_jn2l2"),
+&"score_change": SubResource("Animation_tyil2")
+}
+
+[node name="ScoreScene" type="CanvasLayer" unique_id=974661218]
+script = ExtResource("1_jn2l2")
+
+[node name="Container" type="HBoxContainer" parent="." unique_id=1223121713]
+layout_direction = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -28.5
+offset_top = 35.0
+offset_right = 28.5
+offset_bottom = 58.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Container" unique_id=1719758048]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+text = "Score"
+
+[node name="Score" type="Label" parent="Container" unique_id=1361955655]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+text = "0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1059851643]
+libraries/ = SubResource("AnimationLibrary_eebjh")

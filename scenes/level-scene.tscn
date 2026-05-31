@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://b1v5uhsakeux1" path="res://scenes/level_scene.gd" id="1_7jjbn"]
 [ext_resource type="PackedScene" uid="uid://be2ku6c2r10rl" path="res://scenes/player.tscn" id="2_uar5l"]
+[ext_resource type="PackedScene" uid="uid://di23hmikmx5ln" path="res://scenes/score_scene.tscn" id="3_58ry1"]
 [ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="3_w3lvy"]
 [ext_resource type="Script" uid="uid://byocgihoau2tn" path="res://scenes/camera_shake.gd" id="4_58ry1"]
 [ext_resource type="PackedScene" uid="uid://wwweuxw2f1eh" path="res://scenes/pipe.tscn" id="4_pipe"]
 [ext_resource type="PackedScene" uid="uid://xa21igoreu70" path="res://scenes/Spawner.tscn" id="5_juwml"]
-[ext_resource type="PackedScene" uid="uid://wdmuxjwrmdea" path="res://scenes/score_ui.tscn" id="6_yn5lr"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uar5l"]
 distance = -2.0
@@ -15,6 +15,8 @@ distance = -2.0
 script = ExtResource("1_7jjbn")
 player = NodePath("Player")
 pipe_scene = ExtResource("4_pipe")
+
+[node name="ScoreScene" parent="." unique_id=1109208590 instance=ExtResource("3_58ry1")]
 
 [node name="Player" parent="." unique_id=726765090 node_paths=PackedStringArray("camera") instance=ExtResource("2_uar5l")]
 position = Vector2(96, 331)
@@ -73,8 +75,6 @@ region_rect = Rect2(0, 285.81943, 807, 68.18057)
 [node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container", "enemy_container") instance=ExtResource("5_juwml")]
 pipes_container = NodePath("../PipeContainer")
 enemy_container = NodePath("../EnemyContainer")
-
-[node name="ScoreUI" parent="." unique_id=397794448 instance=ExtResource("6_yn5lr")]
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]

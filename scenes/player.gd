@@ -4,6 +4,7 @@ extends CharacterBody2D
 enum PLAYER_STATE {
 	Idle,
 	Hurt,
+	Invulnarable,
 	Dying
 }
 
@@ -15,6 +16,7 @@ signal player_died()
 @export var bullet_scene: PackedScene
 @export var no_gravity: bool
 @export var camera: CameraShakable
+@export var invulnarable_duration: int = 0.5
 
 @onready var bullet_spawn: Marker2D = $BulletSpawn
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -34,6 +36,9 @@ func _ready() -> void:
 	shoot_material.set_shader_parameter("particle_count", shoot_particles.amount)
 
 func _physics_process(delta: float) -> void:
+	if GameManager.game_state == GameManager.GAME_STATE.PAUSE_MENU:
+		return
+	
 	if player_state == PLAYER_STATE.Dying:
 		return
 		
@@ -103,8 +108,16 @@ func squash_animation():
 	var tween = get_tree().create_tween()
 	tween.tween_property(animated_sprite_2d,"scale",Vector2.ONE,0.5).set_trans(Tween.TRANS_SINE)
 	tween.tween_callback(on_hurt_animation_end)
+	return tween
 	
 func on_hurt_animation_end():
+	if player_state != PLAYER_STATE.Hurt:
+		return
+		
+	player_state = PLAYER_STATE.Invulnarable
+	animated_sprite_2d.modulate = Color(Color.WHITE,0.6)
+	await get_tree().create_timer(invulnarable_duration).timeout
+	animated_sprite_2d.modulate = Color.WHITE
 	player_state = PLAYER_STATE.Idle
 
 func _on_health_component_died(hit_info:HitInfo) -> void:
@@ -120,8 +133,7 @@ func state_to_dying(hit_info:HitInfo):
 	camera.shake(2.0)
 	explosion_smoke_particles.emitting = true
 	explosion_spark_particle.emitting = true
-	await scale_and_fade_animation().finished
-	state_to_die()
+	scale_and_fade_animation()
 	
 func scale_and_fade_animation():
 	var tween := get_tree().create_tween()
@@ -129,7 +141,7 @@ func scale_and_fade_animation():
 	tween.tween_property(animated_sprite_2d, "modulate", Color.TRANSPARENT, 1.0).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(animated_sprite_2d, "scale", Vector2(1.4,1.4),1.0).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(animated_sprite_2d,"rotation",deg_to_rad(90),1.0).set_trans(Tween.TRANS_LINEAR)
-	return tween
+	tween.tween_callback(state_to_die)
 	
 func state_to_die():
 	player_died.emit()
