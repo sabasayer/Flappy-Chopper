@@ -1,44 +1,41 @@
 [gd_scene format=3 uid="uid://d33fvqjdhqp7s"]
 
 [ext_resource type="Script" uid="uid://cxyked4q4gkvv" path="res://scenes/main_scene.gd" id="1_w2twt"]
+[ext_resource type="PackedScene" uid="uid://b1vplra4knlut" path="res://scenes/base_button.tscn" id="2_rt2n2"]
 
 [node name="MainScene" type="Node2D" unique_id=2093131311]
 script = ExtResource("1_w2twt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=688349471]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1519004550]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=851641658]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -78.25
-offset_right = 104.0
-offset_bottom = 78.25
+offset_left = -108.0
+offset_top = -50.5
+offset_right = 108.0
+offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+theme_override_constants/separation = 37
 
-[node name="StartButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=217537843]
+[node name="StartGame" parent="CanvasLayer/VBoxContainer" unique_id=1248118137 instance=ExtResource("2_rt2n2")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+focus_neighbor_bottom = NodePath("")
 text = "START GAME"
 
-[node name="SettingsButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=164419833]
+[node name="Settings" parent="CanvasLayer/VBoxContainer" unique_id=179371874 instance=ExtResource("2_rt2n2")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "SETTINGS
-"
+focus_neighbor_bottom = NodePath("")
+text = "SETTINGS"
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1967322409]
+[node name="ExitGame" parent="CanvasLayer/VBoxContainer" unique_id=128791219 instance=ExtResource("2_rt2n2")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+focus_neighbor_bottom = NodePath("")
 text = "EXIT GAME"
 
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/ExitGame" to="." method="_on_exit_game_pressed"]

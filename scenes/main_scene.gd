@@ -1,13 +1,12 @@
 extends Node2D
 
-@onready var start_button: Button = $CanvasLayer/StartButton
-@onready var settings_button: Button = $CanvasLayer/SettingsButton
-@onready var exit_button: Button = $CanvasLayer/ExitButton
+@onready var start_game: ButtonWithSound = $CanvasLayer/VBoxContainer/StartGame
 
-@onready var level_scene: PackedScene = preload("res://scenes/level-scene.tscn")
+func _ready() -> void:
+	start_game.grab_focus()
 
-func _on_exit_button_pressed() -> void:
+func _on_exit_game_pressed() -> void:
 	GameManager.quit_game()
 
-func _on_start_button_pressed() -> void:
+func _on_start_game_pressed() -> void:
 	GameManager.start_game()

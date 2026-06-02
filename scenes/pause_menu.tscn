@@ -13,11 +13,10 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -116.0
 offset_top = -33.0
-offset_right = 116.0
+offset_right = 86.0
 offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1, 0.99285716)
 alignment = 1
 
 [node name="Continue" type="Button" parent="HBoxContainer" unique_id=1458708986]

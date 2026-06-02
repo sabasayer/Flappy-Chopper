@@ -1,5 +1,7 @@
 extends Node
 
+const UI_CLICK := preload("res://assets/kenney_ui-pack/Sounds/click-a.ogg")
+
 enum GAME_STATE {
 	LOADING,
 	MAIN_MENU,
@@ -19,6 +21,17 @@ var player_score := 0
 var player_high_score := 0
 var game_state := GAME_STATE.LOADING
 var pause_menu_instance: CanvasLayer
+
+func _ready() -> void:
+	call_deferred("_warmup_audio")
+
+func _warmup_audio() -> void:
+	var player := AudioStreamPlayer.new()
+	player.stream = UI_CLICK
+	player.volume_db = -80
+	add_child(player)
+	player.finished.connect(player.queue_free)
+	player.play()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape"):

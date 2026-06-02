@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b1vplra4knlut"]
+
+[ext_resource type="Texture2D" uid="uid://c7xkod3adqq0p" path="res://assets/kenney_ui-pack/Vector/Grey/button_rectangle_gradient.svg" id="1_jkdjr"]
+[ext_resource type="Texture2D" uid="uid://dd2vjteguk51d" path="res://assets/kenney_ui-pack/Vector/Green/button_rectangle_line.svg" id="2_b1a7u"]
+[ext_resource type="Texture2D" uid="uid://dobi0ckx422is" path="res://assets/kenney_ui-pack/Vector/Red/button_rectangle_line.svg" id="3_etpvk"]
+[ext_resource type="Script" uid="uid://bs6fe43b0gtkv" path="res://scenes/base_button.gd" id="4_2gmqs"]
+[ext_resource type="FontFile" uid="uid://du3sker3yf52r" path="res://assets/kenney_ui-pack/Font/Kenney Future Narrow.ttf" id="5_85tei"]
+[ext_resource type="AudioStream" uid="uid://caqq5ao14ljw6" path="res://assets/kenney_ui-pack/Sounds/click-a.ogg" id="6_k5x3t"]
+
+[node name="ButtonWithAudio" type="TextureButton" unique_id=1248118137]
+y_sort_enabled = true
+focus_neighbor_bottom = NodePath("../Settings")
+texture_normal = ExtResource("1_jkdjr")
+texture_pressed = ExtResource("2_b1a7u")
+texture_focused = ExtResource("3_etpvk")
+stretch_mode = 0
+script = ExtResource("4_2gmqs")
+
+[node name="Label" type="Label" parent="." unique_id=1726402923]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_85tei")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2002159698]
+stream = ExtResource("6_k5x3t")
