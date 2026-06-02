@@ -115,7 +115,7 @@ func on_hurt_animation_end():
 		return
 		
 	player_state = PLAYER_STATE.Invulnarable
-	animated_sprite_2d.modulate = Color(Color.WHITE,0.6)
+	animated_sprite_2d.modulate = Color(Color.WHITE,0.1)
 	await get_tree().create_timer(invulnarable_duration).timeout
 	animated_sprite_2d.modulate = Color.WHITE
 	player_state = PLAYER_STATE.Idle

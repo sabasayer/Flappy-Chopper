@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://di23hmikmx5ln" path="res://scenes/score_scene.tscn" id="1_64dwf"]
 [ext_resource type="Script" uid="uid://ywaptyhpjhsl" path="res://scenes/game_over_scene.gd" id="1_ny7m6"]
+[ext_resource type="PackedScene" uid="uid://b1vplra4knlut" path="res://scenes/base_button.tscn" id="3_k0nam"]
+[ext_resource type="FontFile" uid="uid://o6br5f1hgvd5" path="res://assets/kenney_ui-pack/Font/Kenney Future.ttf" id="3_weh2h"]
 
 [node name="GameOverScene" type="CanvasLayer" unique_id=1905308075]
 script = ExtResource("1_ny7m6")
@@ -20,23 +22,24 @@ offset_right = 104.0
 offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_weh2h")
 text = "Game Over
 Press any button to restart"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="." unique_id=731870467]
-anchors_preset = 7
+[node name="ExitToMainMenu" parent="." unique_id=1248118137 instance=ExtResource("3_k0nam")]
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 0.52000004
 anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -266.0
-offset_right = 4.0
-offset_bottom = -258.0
+offset_left = -118.0
+offset_top = -205.0
+offset_right = 95.95996
+offset_bottom = -141.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Exit Game"
+text = "exit to main menu"
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ExitToMainMenu" to="." method="_on_exit_to_main_menu_pressed"]

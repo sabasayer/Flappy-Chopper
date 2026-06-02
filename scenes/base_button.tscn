@@ -9,12 +9,22 @@
 
 [node name="ButtonWithAudio" type="TextureButton" unique_id=1248118137]
 y_sort_enabled = true
-focus_neighbor_bottom = NodePath("../Settings")
+anchors_preset = -1
+anchor_left = 0.083000004
+anchor_top = 0.049000002
+anchor_right = 0.083000004
+anchor_bottom = 0.049000002
+offset_left = -95.616005
+offset_top = -31.752
+offset_right = -95.616005
+offset_bottom = -31.752
+pivot_offset_ratio = Vector2(0.5, 0.5)
 texture_normal = ExtResource("1_jkdjr")
 texture_pressed = ExtResource("2_b1a7u")
 texture_focused = ExtResource("3_etpvk")
 stretch_mode = 0
 script = ExtResource("4_2gmqs")
+audio_stream = ExtResource("6_k5x3t")
 
 [node name="Label" type="Label" parent="." unique_id=1726402923]
 z_as_relative = false
@@ -32,3 +42,8 @@ vertical_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2002159698]
 stream = ExtResource("6_k5x3t")
+
+[connection signal="focus_entered" from="." to="." method="_on_focus_entered"]
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

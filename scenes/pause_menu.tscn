@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dayij8bitgw7e"]
 
 [ext_resource type="Script" uid="uid://ych17e2wxk6h" path="res://scenes/pause_menu.gd" id="1_n87rw"]
+[ext_resource type="PackedScene" uid="uid://b1vplra4knlut" path="res://scenes/base_button.tscn" id="2_myx47"]
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=1425684756]
 script = ExtResource("1_n87rw")
@@ -19,14 +20,14 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Continue" type="Button" parent="HBoxContainer" unique_id=1458708986]
+[node name="Continue" parent="HBoxContainer" unique_id=1248118137 instance=ExtResource("2_myx47")]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../ExitToMainMenu")
 text = "Continue"
 
-[node name="Exit to Main Menu" type="Button" parent="HBoxContainer" unique_id=654638689]
+[node name="ExitToMainMenu" parent="HBoxContainer" unique_id=2077289042 instance=ExtResource("2_myx47")]
 layout_mode = 2
-text = "Exit to Main Menu"
-metadata/_edit_use_anchors_ = true
+text = "exit to main menu"
 
 [connection signal="pressed" from="HBoxContainer/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="HBoxContainer/Exit to Main Menu" to="." method="_on_exit_to_main_menu_pressed"]
+[connection signal="pressed" from="HBoxContainer/ExitToMainMenu" to="." method="_on_exit_to_main_menu_pressed"]

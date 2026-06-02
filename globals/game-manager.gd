@@ -26,9 +26,13 @@ func _ready() -> void:
 	call_deferred("_warmup_audio")
 
 func _warmup_audio() -> void:
+	play_ui_click(UI_CLICK, 1.0, -80)
+
+func play_ui_click(stream: AudioStream, pitch_scale: float = 1.0, volume_db: float = 0.0) -> void:
 	var player := AudioStreamPlayer.new()
-	player.stream = UI_CLICK
-	player.volume_db = -80
+	player.stream = stream
+	player.pitch_scale = pitch_scale
+	player.volume_db = volume_db
 	add_child(player)
 	player.finished.connect(player.queue_free)
 	player.play()

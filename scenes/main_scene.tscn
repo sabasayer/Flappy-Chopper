@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxyked4q4gkvv" path="res://scenes/main_scene.gd" id="1_w2twt"]
 [ext_resource type="PackedScene" uid="uid://b1vplra4knlut" path="res://scenes/base_button.tscn" id="2_rt2n2"]
+[ext_resource type="AudioStream" uid="uid://djuebxyl6tnna" path="res://assets/kenney_ui-pack/Sounds/click-b.ogg" id="3_7ykc4"]
 
 [node name="MainScene" type="Node2D" unique_id=2093131311]
 script = ExtResource("1_w2twt")
@@ -25,6 +26,7 @@ theme_override_constants/separation = 37
 [node name="StartGame" parent="CanvasLayer/VBoxContainer" unique_id=1248118137 instance=ExtResource("2_rt2n2")]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("")
+audio_stream = ExtResource("3_7ykc4")
 text = "START GAME"
 
 [node name="Settings" parent="CanvasLayer/VBoxContainer" unique_id=179371874 instance=ExtResource("2_rt2n2")]
