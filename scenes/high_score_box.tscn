@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://0ypmrj45ulpi"]
+
+[ext_resource type="Texture2D" uid="uid://cyq5x58thtvy4" path="res://assets/kenney_ui-pack/Vector/Yellow/star.svg" id="1_a7exp"]
+[ext_resource type="Script" uid="uid://uco5gvch182o" path="res://scenes/high_score_box.gd" id="1_v083a"]
+[ext_resource type="FontFile" uid="uid://o6br5f1hgvd5" path="res://assets/kenney_ui-pack/Font/Kenney Future.ttf" id="2_v083a"]
+[ext_resource type="FontFile" uid="uid://du3sker3yf52r" path="res://assets/kenney_ui-pack/Font/Kenney Future Narrow.ttf" id="3_w02ge"]
+
+[node name="HighScoreBox" type="HBoxContainer" unique_id=377397678]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+offset_bottom = 64.0
+grow_horizontal = 2
+script = ExtResource("1_v083a")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=477848614]
+layout_mode = 2
+texture = ExtResource("1_a7exp")
+
+[node name="Label" type="Label" parent="." unique_id=559978510]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.28235295, 0.28235295, 0.28235295, 1)
+theme_override_fonts/font = ExtResource("2_v083a")
+text = "High Score"
+
+[node name="HighScore" type="Label" parent="." unique_id=1139072252]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.38431373, 0.39607844, 1)
+theme_override_fonts/font = ExtResource("3_w02ge")
+theme_override_font_sizes/font_size = 21
+text = "12"

@@ -2,11 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://di23hmikmx5ln" path="res://scenes/score_scene.tscn" id="1_64dwf"]
 [ext_resource type="Script" uid="uid://ywaptyhpjhsl" path="res://scenes/game_over_scene.gd" id="1_ny7m6"]
+[ext_resource type="PackedScene" uid="uid://0ypmrj45ulpi" path="res://scenes/high_score_box.tscn" id="2_jy0sy"]
 [ext_resource type="PackedScene" uid="uid://b1vplra4knlut" path="res://scenes/base_button.tscn" id="3_k0nam"]
 [ext_resource type="FontFile" uid="uid://o6br5f1hgvd5" path="res://assets/kenney_ui-pack/Font/Kenney Future.ttf" id="3_weh2h"]
+[ext_resource type="Texture2D" uid="uid://bjwo1v4q0l33g" path="res://assets/sheet.png" id="6_5jg82"]
 
 [node name="GameOverScene" type="CanvasLayer" unique_id=1905308075]
 script = ExtResource("1_ny7m6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=551525846]
+position = Vector2(582.5, 325)
+scale = Vector2(4.4465647, 2.6177607)
+texture = ExtResource("6_5jg82")
+region_enabled = true
+region_rect = Rect2(1, 989, 262, 259)
+
+[node name="HighScoreBox" parent="." unique_id=377397678 instance=ExtResource("2_jy0sy")]
+offset_left = -109.0
+offset_top = 81.0
+offset_right = 109.0
+offset_bottom = 145.0
 
 [node name="ScoreScene" parent="." unique_id=974661218 instance=ExtResource("1_64dwf")]
 
@@ -16,19 +31,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -104.0
-offset_top = -99.0
-offset_right = 104.0
-offset_bottom = -50.0
+offset_left = -163.5
+offset_top = -9.25
+offset_right = 163.5
+offset_bottom = 9.25
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.20511743, 0.20511743, 0.20511743, 1)
 theme_override_fonts/font = ExtResource("3_weh2h")
-text = "Game Over
-Press any button to restart"
+text = "Press any button to restart"
 horizontal_alignment = 1
 
 [node name="ExitToMainMenu" parent="." unique_id=1248118137 instance=ExtResource("3_k0nam")]
-anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.52000004
@@ -41,5 +55,11 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "exit to main menu"
 metadata/_edit_use_anchors_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2111307762]
+position = Vector2(582, 230)
+texture = ExtResource("6_5jg82")
+region_enabled = true
+region_rect = Rect2(1, 837, 410, 70)
 
 [connection signal="pressed" from="ExitToMainMenu" to="." method="_on_exit_to_main_menu_pressed"]

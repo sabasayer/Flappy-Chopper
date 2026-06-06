@@ -11,8 +11,8 @@ const PIPE_PAIR_GAP_SETTING_BY_DISTANCE = {
 	0: { 'gap_height_range': [260, 340], 'gap_padding': 120 },
 	1500: { 'gap_height_range': [250, 330], 'gap_padding': 115 },
 	2800: { 'gap_height_range': [230, 310], 'gap_padding': 105 },
-	4500: { 'gap_height_range': [210, 290], 'gap_padding': 100 },
-	6500: { 'gap_height_range': [190, 270], 'gap_padding': 90 },
+	4500: { 'gap_height_range': [230, 290], 'gap_padding': 100 },
+	6500: { 'gap_height_range': [200, 270], 'gap_padding': 90 },
 }
 
 const SPAWN_CONFIG_BY_DISTANCE = {
@@ -25,7 +25,7 @@ const SPAWN_CONFIG_BY_DISTANCE = {
 		},
 	},
 	1500: {
-		'spawn_distance': [200, 340],
+		'spawn_distance': [220, 360],
 		'enemy_health': 1,
 		'enemy_can_move': false,
 		'spawn_type_percentage': {
@@ -34,7 +34,7 @@ const SPAWN_CONFIG_BY_DISTANCE = {
 		}
 	},
 	2800: {
-		'spawn_distance': [180, 300],
+		'spawn_distance': [220, 360],
 		'enemy_health': 1,
 		'enemy_can_move': false,
 		'spawn_type_percentage': {

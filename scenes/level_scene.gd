@@ -8,10 +8,16 @@ extends Node2D
 
 @onready var playerPosition: Marker2D = $PlayerPosition
 @onready var spawner: Spawner = $Spawner
+@onready var get_ready: Sprite2D = $GetReady
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	reset_player_position()
+	get_ready.visible = true
+	await get_tree().create_timer(1).timeout
+	get_ready.visible = false
+	GameManager.playing()
+	
 
 func restart_level() -> void:
 	get_tree().reload_current_scene()

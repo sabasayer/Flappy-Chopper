@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://qkf2k7lx1ma0" path="res://scenes/hurt_spark_particles.tscn" id="7_smehm"]
 [ext_resource type="Shader" uid="uid://d4kg7gfcfeqyt" path="res://scenes/shoot_particle.gdshader" id="8_shoot"]
 [ext_resource type="Texture2D" uid="uid://c401u85tlfu0y" path="res://assets/spark_02.png" id="9_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://dhxy4ptx5hb0s" path="res://assets/kenney_ui-pack/Vector/Red/star.svg" id="10_y4r1p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(84, 66)
@@ -151,7 +152,7 @@ position = Vector2(0, 3)
 emitting = false
 amount = 4
 texture = ExtResource("7_fjrip")
-lifetime = 0.09999999999999999
+lifetime = 0.1
 one_shot = true
 explosiveness = 1.0
 local_coords = true
@@ -159,7 +160,7 @@ process_material = SubResource("ShaderMaterial_shoot")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1226408465]
 script = ExtResource("4_dqkch")
-max_health = 2
+max_health = 3
 metadata/_custom_type_script = "uid://ch7brteh48svk"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=84006788]
@@ -200,6 +201,28 @@ lifetime = 0.16
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_y4r1p")
+
+[node name="DistanceLabel" type="Label" parent="." unique_id=203070545]
+offset_left = -19.0
+offset_top = -113.0
+offset_right = 21.0
+offset_bottom = -90.0
+theme_override_colors/font_color = Color(0.07683582, 0.07683582, 0.07683582, 1)
+
+[node name="HealthUI" type="HBoxContainer" parent="." unique_id=656463321]
+offset_left = -27.0
+offset_top = -62.0
+offset_right = 32.0
+offset_bottom = -43.0
+alignment = 1
+
+[node name="Star" type="TextureRect" parent="HealthUI" unique_id=2048207967]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("10_y4r1p")
+expand_mode = 4
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

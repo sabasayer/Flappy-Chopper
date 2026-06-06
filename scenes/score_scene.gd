@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-@onready var score: Label = $Container/Score
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var score: Label = %Score
 
 func _ready():
 	GameManager.score_changed.connect(_on_score_changed)

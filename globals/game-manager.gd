@@ -1,10 +1,12 @@
 extends Node
 
+const FILE_PATH := "user://high_score"
 const UI_CLICK := preload("res://assets/kenney_ui-pack/Sounds/click-a.ogg")
 
 enum GAME_STATE {
 	LOADING,
 	MAIN_MENU,
+	LEVEL_STARTING,
 	PLAYING,
 	PAUSE_MENU,
 	GAME_OVER_MENU
@@ -24,6 +26,7 @@ var pause_menu_instance: CanvasLayer
 
 func _ready() -> void:
 	call_deferred("_warmup_audio")
+	read_high_score()
 
 func _warmup_audio() -> void:
 	play_ui_click(UI_CLICK, 1.0, -80)
@@ -48,20 +51,39 @@ func add_score(score: int) -> void:
 	player_score += score
 	if player_score > player_high_score:
 		player_high_score = player_score
+		save_high_score()
 	score_changed.emit(player_score)
 
 func reset_score() -> void:
 	player_score = 0
+	
+func read_high_score():
+	var file := FileAccess.open(FILE_PATH, FileAccess.READ)
+	if !file:
+		return
+		
+	var value = file.get_64()
+	if value:
+		player_high_score = value
 
 func save_high_score() -> void:
-	#todo: save high score to file
-	pass
+	if !player_high_score:
+		return
+		
+	var file = FileAccess.open(FILE_PATH, FileAccess.WRITE)
+	if !file:
+		return
+		
+	file.store_64(player_high_score)
 
 func start_game():
 	reset_score()
 	var res = get_tree().change_scene_to_packed(level_scene)
 	if res == Error.OK:
-		game_state = GAME_STATE.PLAYING
+		game_state = GAME_STATE.LEVEL_STARTING
+		
+func playing():
+	game_state = GAME_STATE.PLAYING
 
 func quit_game():
 	get_tree().quit()

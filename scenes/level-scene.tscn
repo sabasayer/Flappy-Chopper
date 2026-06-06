@@ -44,7 +44,7 @@ metadata/_edit_lock_ = true
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=2125357805]
 z_index = -1
 scale = Vector2(1.5, 1.5)
-scroll_scale = Vector2(0.2, 0.2)
+scroll_scale = Vector2(0.1, 0.1)
 scroll_offset = Vector2(798, 332)
 repeat_size = Vector2(799, 0)
 repeat_times = 3
@@ -55,11 +55,20 @@ region_enabled = true
 region_rect = Rect2(0, 355, 800, 480)
 metadata/_edit_lock_ = true
 
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1930389168]
+scroll_scale = Vector2(0.3, 0.3)
+scroll_offset = Vector2(-588, 615)
+repeat_size = Vector2(806, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=13427312]
+texture = ExtResource("3_w3lvy")
+region_enabled = true
+region_rect = Rect2(0, 72, 808, 70)
+
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=875700519]
-z_index = -1
-scale = Vector2(3, 3)
 scroll_scale = Vector2(0.4, 0.4)
-scroll_offset = Vector2(-1536.0001, 569)
+scroll_offset = Vector2(-1534, 614)
 repeat_size = Vector2(806, 0)
 repeat_times = 3
 
@@ -75,6 +84,12 @@ region_rect = Rect2(0, 285.81943, 807, 68.18057)
 [node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container", "enemy_container") instance=ExtResource("5_juwml")]
 pipes_container = NodePath("../PipeContainer")
 enemy_container = NodePath("../EnemyContainer")
+
+[node name="GetReady" type="Sprite2D" parent="." unique_id=1738047062]
+position = Vector2(630, 331)
+texture = ExtResource("3_w3lvy")
+region_enabled = true
+region_rect = Rect2(0, 912, 400, 68)
 
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]

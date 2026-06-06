@@ -11,12 +11,12 @@ enum PLAYER_STATE {
 signal player_died()
 
 @export var speed: int = 150
-@export var jump_velocity: int = -350
+@export var jump_velocity: int = -320
 @export var bullet_speed: int = 600
 @export var bullet_scene: PackedScene
 @export var no_gravity: bool
 @export var camera: CameraShakable
-@export var invulnarable_duration: int = 0.5
+@export var invulnarable_duration: int = 2
 
 @onready var bullet_spawn: Marker2D = $BulletSpawn
 @onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
@@ -27,6 +27,10 @@ signal player_died()
 @onready var explosion_smoke_particles: GPUParticles2D = $ExplosionSmokeParticles
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var explosion_spark_particle: GPUParticles2D = $ExplosionSparkParticle
+@onready var health_component: HealthComponent = $HealthComponent
+@onready var distance_label: Label = $DistanceLabel
+@onready var star: TextureRect = $HealthUI/Star
+@onready var health_ui: HBoxContainer = $HealthUI
 
 var player_state:PLAYER_STATE = PLAYER_STATE.Idle
 
@@ -34,9 +38,17 @@ func _ready() -> void:
 	assert(bullet_scene != null, "Bullet scene should be assigned")
 	var shoot_material := shoot_particles.process_material as ShaderMaterial
 	shoot_material.set_shader_parameter("particle_count", shoot_particles.amount)
+	init_health_ui()
+	
+func init_health_ui():
+	var max_health = health_component.max_health
+	if max_health > 1:
+		for i in max_health - 1:
+			var cloned = star.duplicate()
+			health_ui.add_child(cloned)
 
 func _physics_process(delta: float) -> void:
-	if GameManager.game_state == GameManager.GAME_STATE.PAUSE_MENU:
+	if GameManager.game_state != GameManager.GAME_STATE.PLAYING:
 		return
 	
 	if player_state == PLAYER_STATE.Dying:
@@ -54,6 +66,7 @@ func _physics_process(delta: float) -> void:
 	velocity.x = speed
 
 	move_and_slide()
+	distance_label.text = 'Distance: %s' % global_position.x
 
 func on_jump(delta: float):
 	if player_state == PLAYER_STATE.Dying:
@@ -80,7 +93,20 @@ func state_to_hurt(hit_info:HitInfo):
 		return
 		
 	player_state = PLAYER_STATE.Hurt
+	health_component.disable()
+	update_health_ui()
 	run_hurt_animation(hit_info)
+	
+func update_health_ui():
+	var source = health_component.health
+	var target = health_component.max_health
+	
+	if source == target:
+		return
+	 
+	for child in health_ui.get_children():
+		child.queue_free()
+		return
 	
 func run_hurt_animation(hit_info:HitInfo):
 	camera.shake()
@@ -115,10 +141,11 @@ func on_hurt_animation_end():
 		return
 		
 	player_state = PLAYER_STATE.Invulnarable
-	animated_sprite_2d.modulate = Color(Color.WHITE,0.1)
-	await get_tree().create_timer(invulnarable_duration).timeout
+	animated_sprite_2d.modulate = Color(Color.WHITE,0.6)
+	await get_tree().create_timer(invulnarable_duration - 0.5).timeout
 	animated_sprite_2d.modulate = Color.WHITE
 	player_state = PLAYER_STATE.Idle
+	health_component.enable()
 
 func _on_health_component_died(hit_info:HitInfo) -> void:
 	state_to_dying(hit_info)
@@ -128,6 +155,7 @@ func _on_health_component_damaged(hit_info:HitInfo) -> void:
 
 func state_to_dying(hit_info:HitInfo):
 	player_state = PLAYER_STATE.Dying
+	health_component.disable()
 	collision_shape_2d.set_deferred("disabled",true)
 	animation_player.pause()
 	camera.shake(2.0)
@@ -144,4 +172,5 @@ func scale_and_fade_animation():
 	tween.tween_callback(state_to_die)
 	
 func state_to_die():
+	await get_tree().create_timer(2).timeout
 	player_died.emit()
