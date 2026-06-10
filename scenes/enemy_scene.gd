@@ -7,7 +7,7 @@ const HEALTH_COLORS = {
 }
 
 @export var damage: int = 1
-@export var kill_score: int = 1
+@export var kill_score: int = 5
 @export var can_move: bool = false
 @onready var hurt_spark_particles: HurtSparkParticle = $VisualContainer/HurtSparkParticles
 @onready var sprite_2d: Sprite2D = $VisualContainer/Sprite2D

@@ -58,10 +58,39 @@ tracks/1/keys = {
 "values": [22, 35, 22]
 }
 
+[sub_resource type="Animation" id="Animation_eebjh"]
+resource_name = "score_change_big"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Container/Score:theme_override_colors/font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.78431374, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Container/Score:theme_override_font_sizes/font_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.26666668, 0.5),
+"transitions": PackedFloat32Array(1, 0.43527535, 1),
+"update": 0,
+"values": [22, 46, 22]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_eebjh"]
 _data = {
 &"RESET": SubResource("Animation_jn2l2"),
-&"score_change": SubResource("Animation_tyil2")
+&"score_change": SubResource("Animation_tyil2"),
+&"score_change_big": SubResource("Animation_eebjh")
 }
 
 [node name="ScoreScene" type="CanvasLayer" unique_id=974661218]
@@ -95,6 +124,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_type_variation = &"HeaderSmall"
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "Score"
 
 [node name="Score" type="Label" parent="Container" unique_id=1361955655]
@@ -103,6 +133,7 @@ layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 22
 text = "0"
 

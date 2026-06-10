@@ -8,11 +8,10 @@ enum SpawnType {
 }
 
 const PIPE_PAIR_GAP_SETTING_BY_DISTANCE = {
-	0: { 'gap_height_range': [260, 340], 'gap_padding': 120 },
-	1500: { 'gap_height_range': [250, 330], 'gap_padding': 115 },
-	2800: { 'gap_height_range': [230, 310], 'gap_padding': 105 },
-	4500: { 'gap_height_range': [230, 290], 'gap_padding': 100 },
-	6500: { 'gap_height_range': [200, 270], 'gap_padding': 90 },
+	0: { 'gap_height_range': [260, 340], 'gap_padding': 100 },
+	3000: { 'gap_height_range': [230, 250], 'gap_padding': 100 },
+	12000: { 'gap_height_range': [220, 240], 'gap_padding': 100 },
+	15000: { 'gap_height_range': [200, 230], 'gap_padding': 100 },
 }
 
 const SPAWN_CONFIG_BY_DISTANCE = {
@@ -24,45 +23,69 @@ const SPAWN_CONFIG_BY_DISTANCE = {
 			100: SpawnType.PIPE
 		},
 	},
-	1500: {
-		'spawn_distance': [220, 360],
+	5000: {
+		'spawn_distance': [180, 300],
 		'enemy_health': 1,
 		'enemy_can_move': false,
 		'spawn_type_percentage': {
-			85: SpawnType.PIPE,
-			15: SpawnType.ENEMY_ONLY
-		}
+			100: SpawnType.PIPE
+		},
 	},
-	2800: {
-		'spawn_distance': [220, 360],
+	10000: {
+		'spawn_distance': [140, 150],
 		'enemy_health': 1,
 		'enemy_can_move': false,
 		'spawn_type_percentage': {
-			65: SpawnType.PIPE,
-			20: SpawnType.ENEMY_ONLY,
-			15: SpawnType.PIPE_WITH_ENEMY
-		}
+			100: SpawnType.PIPE
+		},
 	},
-	4500: {
-		'spawn_distance': [160, 280],
-		'enemy_health': 2,
+	20000: {
+		'spawn_distance': [120, 130],
+		'enemy_health': 1,
 		'enemy_can_move': false,
 		'spawn_type_percentage': {
-			50: SpawnType.PIPE,
-			20: SpawnType.ENEMY_ONLY,
-			30: SpawnType.PIPE_WITH_ENEMY
-		}
+			100: SpawnType.PIPE
+		},
 	},
-	6500: {
-		'spawn_distance': [140, 260],
-		'enemy_health': 2,
-		'enemy_can_move': true,
-		'spawn_type_percentage': {
-			30: SpawnType.PIPE,
-			15: SpawnType.ENEMY_ONLY,
-			55: SpawnType.PIPE_WITH_ENEMY
-		}
-	}
+	#1500: {
+		#'spawn_distance': [220, 360],
+		#'enemy_health': 1,
+		#'enemy_can_move': false,
+		#'spawn_type_percentage': {
+			#85: SpawnType.PIPE,
+			#15: SpawnType.ENEMY_ONLY
+		#}
+	#},
+	#2800: {
+		#'spawn_distance': [220, 360],
+		#'enemy_health': 1,
+		#'enemy_can_move': false,
+		#'spawn_type_percentage': {
+			#65: SpawnType.PIPE,
+			#20: SpawnType.ENEMY_ONLY,
+			#15: SpawnType.PIPE_WITH_ENEMY
+		#}
+	#},
+	#4500: {
+		#'spawn_distance': [160, 280],
+		#'enemy_health': 2,
+		#'enemy_can_move': false,
+		#'spawn_type_percentage': {
+			#50: SpawnType.PIPE,
+			#20: SpawnType.ENEMY_ONLY,
+			#30: SpawnType.PIPE_WITH_ENEMY
+		#}
+	#},
+	#6500: {
+		#'spawn_distance': [140, 260],
+		#'enemy_health': 2,
+		#'enemy_can_move': true,
+		#'spawn_type_percentage': {
+			#30: SpawnType.PIPE,
+			#15: SpawnType.ENEMY_ONLY,
+			#55: SpawnType.PIPE_WITH_ENEMY
+		#}
+	#}
 }
 
 var player: Player:

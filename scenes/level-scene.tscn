@@ -18,19 +18,6 @@ pipe_scene = ExtResource("4_pipe")
 
 [node name="ScoreScene" parent="." unique_id=1109208590 instance=ExtResource("3_58ry1")]
 
-[node name="Player" parent="." unique_id=726765090 node_paths=PackedStringArray("camera") instance=ExtResource("2_uar5l")]
-position = Vector2(96, 331)
-camera = NodePath("Camera2D")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=292529189]
-visible = false
-offset = Vector2(300, 0)
-limit_left = -200
-limit_top = 0
-limit_right = 10000001
-limit_bottom = 648
-script = ExtResource("4_58ry1")
-
 [node name="PlayerPosition" type="Marker2D" parent="." unique_id=235143270]
 position = Vector2(93, 331)
 
@@ -77,6 +64,20 @@ texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 285.81943, 807, 68.18057)
 
+[node name="Player" parent="." unique_id=726765090 node_paths=PackedStringArray("camera") instance=ExtResource("2_uar5l")]
+z_index = 1
+position = Vector2(96, 331)
+camera = NodePath("Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=292529189]
+visible = false
+offset = Vector2(300, 0)
+limit_left = -200
+limit_top = 0
+limit_right = 10000001
+limit_bottom = 648
+script = ExtResource("4_58ry1")
+
 [node name="PipeContainer" type="Node2D" parent="." unique_id=2049394600]
 
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=263046732]
@@ -91,5 +92,5 @@ texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 912, 400, 68)
 
-[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]
+[connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

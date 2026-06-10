@@ -46,7 +46,7 @@ func init_health_ui():
 		for i in max_health - 1:
 			var cloned = star.duplicate()
 			health_ui.add_child(cloned)
-
+			
 func _physics_process(delta: float) -> void:
 	if GameManager.game_state != GameManager.GAME_STATE.PLAYING:
 		return
@@ -54,26 +54,25 @@ func _physics_process(delta: float) -> void:
 	if player_state == PLAYER_STATE.Dying:
 		return
 		
-	# Add the gravity.
 	if not no_gravity:
 		velocity += get_gravity() * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
-		on_jump(delta)
+		on_jump()
 
-	# Constant horizontal speedgap_height
 	velocity.x = speed
 
 	move_and_slide()
 	distance_label.text = 'Distance: %s' % global_position.x
 
-func on_jump(delta: float):
+func on_jump() -> void:
 	if player_state == PLAYER_STATE.Dying:
 		return
 		
 	velocity.y = jump_velocity
+	#handle_shoot_bullet()
 	
+func handle_shoot_bullet():
 	var bullet_instance := bullet_scene.instantiate() as Bullet
 	bullet_instance.speed = bullet_speed
 	get_tree().current_scene.add_child(bullet_instance)

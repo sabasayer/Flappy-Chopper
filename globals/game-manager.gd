@@ -12,7 +12,7 @@ enum GAME_STATE {
 	GAME_OVER_MENU
 }
 
-signal score_changed(new_score:int)
+signal score_changed(new_score:int, old_score)
 
 @onready var level_scene:PackedScene = preload("res://scenes/level-scene.tscn")
 @onready var game_over_scene:PackedScene = preload("res://scenes/game_over_scene.tscn")
@@ -48,11 +48,12 @@ func _process(delta: float) -> void:
 			unpause()
 
 func add_score(score: int) -> void:
+	var old_score = player_score
 	player_score += score
 	if player_score > player_high_score:
 		player_high_score = player_score
 		save_high_score()
-	score_changed.emit(player_score)
+	score_changed.emit(player_score, old_score)
 
 func reset_score() -> void:
 	player_score = 0
