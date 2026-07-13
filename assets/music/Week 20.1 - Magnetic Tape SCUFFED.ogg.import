@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bpdnkka61qh4e"
+path="res://.godot/imported/Week 20.1 - Magnetic Tape SCUFFED.ogg-5ad5ba892a6bbacb05cd9d03ded14a96.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/Week 20.1 - Magnetic Tape SCUFFED.ogg"
+dest_files=["res://.godot/imported/Week 20.1 - Magnetic Tape SCUFFED.ogg-5ad5ba892a6bbacb05cd9d03ded14a96.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

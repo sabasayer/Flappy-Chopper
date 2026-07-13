@@ -9,7 +9,17 @@ script = ExtResource("1_arpqm")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=963986156]
 texture = ExtResource("1_8x3ej")
 region_enabled = true
-region_rect = Rect2(0, 1756.9738, 106, 238.02625)
+region_rect = Rect2(0, 1757, 108, 239)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=848470033]
+texture = ExtResource("1_8x3ej")
+region_enabled = true
+region_rect = Rect2(216, 1639, 110, 239)
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1743123789]
+texture = ExtResource("1_8x3ej")
+region_enabled = true
+region_rect = Rect2(323, 1728, 109, 239)
 
 [node name="Area2D" type="Area2D" parent="." unique_id=950264106]
 visible = false

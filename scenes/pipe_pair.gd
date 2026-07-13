@@ -59,7 +59,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if scored:
 		return
 	if body is Player:
-		GameManager.add_score(1)
+		(body as Player).handle_pipe_pass(1)
 		scored = true
 
 

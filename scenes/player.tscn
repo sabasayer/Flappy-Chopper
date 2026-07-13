@@ -10,6 +10,10 @@
 [ext_resource type="Shader" uid="uid://d4kg7gfcfeqyt" path="res://scenes/shoot_particle.gdshader" id="8_shoot"]
 [ext_resource type="Texture2D" uid="uid://c401u85tlfu0y" path="res://assets/spark_02.png" id="9_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://dhxy4ptx5hb0s" path="res://assets/kenney_ui-pack/Vector/Red/star.svg" id="10_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://djxep6iec5wqe" path="res://assets/sound_effects/hurt.wav" id="11_3v2ag"]
+[ext_resource type="AudioStream" uid="uid://dyhip26jsgvhf" path="res://assets/sound_effects/tennis_ball_bounce_1.wav" id="11_d2wvv"]
+[ext_resource type="AudioStream" uid="uid://pcl0iurlivnj" path="res://assets/sound_effects/coin_3.wav" id="11_f1ej7"]
+[ext_resource type="AudioStream" uid="uid://c6duackb6eluq" path="res://assets/sound_effects/lose.wav" id="11_jej6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(84, 66)
@@ -203,6 +207,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_y4r1p")
 
 [node name="DistanceLabel" type="Label" parent="." unique_id=203070545]
+visible = false
 offset_left = -19.0
 offset_top = -113.0
 offset_right = 21.0
@@ -223,6 +228,18 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource("10_y4r1p")
 expand_mode = 4
+
+[node name="score_audio" type="AudioStreamPlayer" parent="." unique_id=791783193]
+stream = ExtResource("11_f1ej7")
+
+[node name="die_audio" type="AudioStreamPlayer" parent="." unique_id=115197352]
+stream = ExtResource("11_jej6c")
+
+[node name="hurt_audio" type="AudioStreamPlayer" parent="." unique_id=652497823]
+stream = ExtResource("11_3v2ag")
+
+[node name="jump_audio" type="AudioStreamPlayer" parent="." unique_id=1730943046]
+stream = ExtResource("11_d2wvv")
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

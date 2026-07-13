@@ -31,6 +31,10 @@ signal player_died()
 @onready var distance_label: Label = $DistanceLabel
 @onready var star: TextureRect = $HealthUI/Star
 @onready var health_ui: HBoxContainer = $HealthUI
+@onready var jump_audio: AudioStreamPlayer = $jump_audio
+@onready var hurt_audio: AudioStreamPlayer = $hurt_audio
+@onready var die_audio: AudioStreamPlayer = $die_audio
+@onready var score_audio: AudioStreamPlayer = $score_audio
 
 var player_state:PLAYER_STATE = PLAYER_STATE.Idle
 
@@ -70,6 +74,9 @@ func on_jump() -> void:
 		return
 		
 	velocity.y = jump_velocity
+	var pitch := randf_range(0.9, 1.1)
+	jump_audio.pitch_scale = pitch
+	jump_audio.play()
 	#handle_shoot_bullet()
 	
 func handle_shoot_bullet():
@@ -91,6 +98,9 @@ func state_to_hurt(hit_info:HitInfo):
 	if player_state != PLAYER_STATE.Idle:
 		return
 		
+	hurt_audio.pitch_scale = randf_range(0.9,1.1)
+	hurt_audio.play()
+	
 	player_state = PLAYER_STATE.Hurt
 	health_component.disable()
 	update_health_ui()
@@ -153,6 +163,8 @@ func _on_health_component_damaged(hit_info:HitInfo) -> void:
 	state_to_hurt(hit_info)
 
 func state_to_dying(hit_info:HitInfo):
+	die_audio.pitch_scale = randf_range(0.9,1.1)
+	die_audio.play()
 	player_state = PLAYER_STATE.Dying
 	health_component.disable()
 	collision_shape_2d.set_deferred("disabled",true)
@@ -173,3 +185,8 @@ func scale_and_fade_animation():
 func state_to_die():
 	await get_tree().create_timer(2).timeout
 	player_died.emit()
+	
+func handle_pipe_pass(score:int):
+	GameManager.add_score(score)
+	score_audio.pitch_scale = randf_range(0.98,1.02)
+	score_audio.play()

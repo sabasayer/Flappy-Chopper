@@ -9,6 +9,7 @@ extends Node2D
 @onready var playerPosition: Marker2D = $PlayerPosition
 @onready var spawner: Spawner = $Spawner
 @onready var get_ready: Sprite2D = $GetReady
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +18,9 @@ func _ready() -> void:
 	await get_tree().create_timer(1).timeout
 	get_ready.visible = false
 	GameManager.playing()
+	var pitch := randf_range(0.9, 1.1)
+	audio_stream_player.pitch_scale = pitch
+	audio_stream_player.play()
 	
 
 func restart_level() -> void:
@@ -31,6 +35,3 @@ func _on_ground_area_entered(_body: Node2D) -> void:
 
 func _on_player_player_died() -> void:
 	GameManager.game_over()
-
-func _process(delta: float) -> void:
-	spawner.check_and_spawn()

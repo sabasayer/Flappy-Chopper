@@ -7,9 +7,32 @@
 [ext_resource type="Script" uid="uid://byocgihoau2tn" path="res://scenes/camera_shake.gd" id="4_58ry1"]
 [ext_resource type="PackedScene" uid="uid://wwweuxw2f1eh" path="res://scenes/pipe.tscn" id="4_pipe"]
 [ext_resource type="PackedScene" uid="uid://xa21igoreu70" path="res://scenes/Spawner.tscn" id="5_juwml"]
+[ext_resource type="Texture2D" uid="uid://dwssyttjx3egd" path="res://assets/star_08.png" id="7_hsfnw"]
+[ext_resource type="AudioStream" uid="uid://b8hvddtt21tl6" path="res://assets/music/Week 16 - Vacation Day ADVENTURE.ogg" id="8_d80ba"]
+[ext_resource type="PackedScene" uid="uid://m3uo68gat341" path="res://scenes/decoration_spawner.tscn" id="10_4wbay"]
+[ext_resource type="Script" uid="uid://g6hxhbrb8w8u" path="res://scenes/spawner_base.gd" id="11_05dma"]
+[ext_resource type="Texture2D" uid="uid://6vmt0ppsy3bp" path="res://assets/background_items.png" id="12_twipv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uar5l"]
 distance = -2.0
+
+[sub_resource type="Curve" id="Curve_4wbay"]
+_data = [Vector2(0.006389782, 0.87234044), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_05dma"]
+curve = SubResource("Curve_4wbay")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_twipv"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(500, 0, 0)
+emission_shape = 3
+emission_box_extents = Vector3(500, 250, 1)
+gravity = Vector3(0, 12, 0)
+scale_min = 0.06
+scale_max = 0.099999994
+color = Color(0.9411765, 1, 1, 0.75686276)
+alpha_curve = SubResource("CurveTexture_05dma")
 
 [node name="LevelScene" type="Node2D" unique_id=1226324035 node_paths=PackedStringArray("player")]
 script = ExtResource("1_7jjbn")
@@ -43,7 +66,7 @@ region_rect = Rect2(0, 355, 800, 480)
 metadata/_edit_lock_ = true
 
 [node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1930389168]
-scroll_scale = Vector2(0.3, 0.3)
+scroll_scale = Vector2(0.2, 0.2)
 scroll_offset = Vector2(-588, 615)
 repeat_size = Vector2(806, 0)
 repeat_times = 3
@@ -52,6 +75,14 @@ repeat_times = 3
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 72, 808, 70)
+
+[node name="CloudContainer" type="Parallax2D" parent="." unique_id=2034585452]
+scroll_scale = Vector2(0.15, 0.15)
+scroll_offset = Vector2(0, 98)
+
+[node name="DecorationContainer" type="Parallax2D" parent="." unique_id=236770135]
+scroll_scale = Vector2(0.2, 0.2)
+scroll_offset = Vector2(7, 571)
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=875700519]
 scroll_scale = Vector2(0.4, 0.4)
@@ -78,11 +109,17 @@ limit_right = 10000001
 limit_bottom = 648
 script = ExtResource("4_58ry1")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Player" unique_id=266667792]
+texture = ExtResource("7_hsfnw")
+lifetime = 3.0
+process_material = SubResource("ParticleProcessMaterial_twipv")
+
 [node name="PipeContainer" type="Node2D" parent="." unique_id=2049394600]
 
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=263046732]
 
 [node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container", "enemy_container") instance=ExtResource("5_juwml")]
+visible = false
 pipes_container = NodePath("../PipeContainer")
 enemy_container = NodePath("../EnemyContainer")
 
@@ -91,6 +128,43 @@ position = Vector2(630, 331)
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 912, 400, 68)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1464858541]
+stream = ExtResource("8_d80ba")
+volume_db = -10.0
+parameters/looping = true
+
+[node name="DecorationSpawner" parent="." unique_id=1019858411 node_paths=PackedStringArray("container") instance=ExtResource("10_4wbay")]
+visible = false
+container = NodePath("../DecorationContainer")
+
+[node name="CloudSpawner" type="Node2D" parent="." unique_id=508270045 node_paths=PackedStringArray("container")]
+visible = false
+script = ExtResource("11_05dma")
+spawn_y_diff = 100
+container = NodePath("../CloudContainer")
+metadata/_custom_type_script = "uid://g6hxhbrb8w8u"
+
+[node name="Sprite2D" type="Sprite2D" parent="CloudSpawner" unique_id=1277528446]
+position = Vector2(38.999996, 73.99999)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("12_twipv")
+region_enabled = true
+region_rect = Rect2(891, 834, 392, 311)
+
+[node name="Sprite2D2" type="Sprite2D" parent="CloudSpawner" unique_id=360007853]
+position = Vector2(245.99998, 73.00001)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("12_twipv")
+region_enabled = true
+region_rect = Rect2(0, 726, 500, 291)
+
+[node name="Sprite2D3" type="Sprite2D" parent="CloudSpawner" unique_id=893198143]
+position = Vector2(479.99997, 71)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("12_twipv")
+region_enabled = true
+region_rect = Rect2(561, 0, 407, 241)
 
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_area_entered"]
 [connection signal="player_died" from="Player" to="." method="_on_player_player_died"]

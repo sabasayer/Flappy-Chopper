@@ -28,6 +28,9 @@ var screen_width: float:
 var screen_height: float:
 	get():
 		return get_viewport_rect().size.y
+		
+func _process(delta: float) -> void:
+	check_and_spawn()
 
 func check_and_spawn():
 	var visible_right = camera.global_position.x + screen_width / 2

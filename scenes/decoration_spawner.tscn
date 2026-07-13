@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://m3uo68gat341"]
+
+[ext_resource type="Script" uid="uid://g6hxhbrb8w8u" path="res://scenes/spawner_base.gd" id="1_mnpoh"]
+[ext_resource type="Texture2D" uid="uid://6vmt0ppsy3bp" path="res://assets/background_items.png" id="2_mnpoh"]
+
+[node name="DecorationSpawner" type="Node2D" unique_id=2042077339]
+scale = Vector2(0.42, 0.42)
+script = ExtResource("1_mnpoh")
+metadata/_custom_type_script = "uid://g6hxhbrb8w8u"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=193136038]
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_mnpoh")
+region_enabled = true
+region_rect = Rect2(1249, 171, 212, 515)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=5089655]
+position = Vector2(223.99998, -11)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_mnpoh")
+region_enabled = true
+region_rect = Rect2(1460, 0, 216, 510)
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=721876600]
+position = Vector2(471.99994, -12)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_mnpoh")
+region_enabled = true
+region_rect = Rect2(1458, 1595, 210, 491)
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=52382947]
+position = Vector2(9.999998, 247.99997)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_mnpoh")
+region_enabled = true
+region_rect = Rect2(1283, 686, 199, 461)
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1143852395]
+position = Vector2(234, 280)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_mnpoh")
+region_enabled = true
+region_rect = Rect2(1858, 837, 163, 480)
+
+[node name="Sprite2D6" type="Sprite2D" parent="." unique_id=240913424]
+position = Vector2(471.99994, 265.99997)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("2_mnpoh")
+region_enabled = true
+region_rect = Rect2(1671, 1305, 189, 464)
