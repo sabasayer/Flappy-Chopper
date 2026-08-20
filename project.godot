@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 GameManager="*uid://daufpqjtca2tu"
 DifficultyManager="*uid://gbjrwvuhsx8o"
+GlobalLogger="*uid://dtejq63u3obdm"
 
 [display]
 

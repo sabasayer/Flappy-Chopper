@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ct7slprq1libr" path="res://assets/spark_05.png" id="7_fjrip"]
 [ext_resource type="PackedScene" uid="uid://qkf2k7lx1ma0" path="res://scenes/hurt_spark_particles.tscn" id="7_smehm"]
 [ext_resource type="Shader" uid="uid://d4kg7gfcfeqyt" path="res://scenes/shoot_particle.gdshader" id="8_shoot"]
+[ext_resource type="Texture2D" uid="uid://dej6638rhxph6" path="res://assets/trace_06.png" id="9_oprun"]
 [ext_resource type="Texture2D" uid="uid://c401u85tlfu0y" path="res://assets/spark_02.png" id="9_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://dhxy4ptx5hb0s" path="res://assets/kenney_ui-pack/Vector/Red/star.svg" id="10_y4r1p"]
 [ext_resource type="AudioStream" uid="uid://djxep6iec5wqe" path="res://assets/sound_effects/hurt.wav" id="11_3v2ag"]
@@ -73,23 +74,15 @@ scale_min = 0.049999997
 scale_max = 0.099999994
 scale_curve = SubResource("CurveTexture_smehm")
 
-[sub_resource type="Curve" id="Curve_smehm"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_ur7pv"]
-curve = SubResource("Curve_smehm")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smehm"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oprun"]
 particle_flag_disable_z = true
+angle_min = -89.99999
+angle_max = -89.99999
 direction = Vector3(-1, 0, 0)
-spread = 30.0
-initial_velocity_min = 1.0
-initial_velocity_max = 5.0
+spread = 0.0
 gravity = Vector3(0, 0, 0)
-scale_min = 0.07
-scale_max = 0.099999994
-scale_curve = SubResource("CurveTexture_ur7pv")
+scale_min = 0.049999997
+scale_max = 0.049999997
 
 [sub_resource type="Curve" id="Curve_ur7pv"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1806724), 0.0, 0.0, 0, 0]
@@ -182,11 +175,11 @@ process_material = SubResource("ParticleProcessMaterial_ur7pv")
 
 [node name="IdleSmokeParticles" type="GPUParticles2D" parent="." unique_id=1637410080]
 modulate = Color(0.92941177, 0.92941177, 0.92941177, 0.61960787)
-position = Vector2(30, 3)
-amount = 3
-texture = ExtResource("6_tuyoq")
-lifetime = 0.6
-process_material = SubResource("ParticleProcessMaterial_smehm")
+position = Vector2(-29, 3)
+amount = 10
+texture = ExtResource("9_oprun")
+trail_lifetime = 1.09
+process_material = SubResource("ParticleProcessMaterial_oprun")
 
 [node name="ExplosionSmokeParticles" type="GPUParticles2D" parent="." unique_id=1028439011]
 emitting = false

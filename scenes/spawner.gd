@@ -34,46 +34,35 @@ func _process(delta: float) -> void:
 
 func check_and_spawn():
 	var visible_right = camera.global_position.x + screen_width / 2
-	var spawn_distance = DifficultyManager.curent_spawn_distance as Array
+	var spawn_information = get_spawn_info()
+	
 	while visible_right + spawn_margin > next_spawn_x:
 		print("spawning")
-		next_spawn_x += randi_range(spawn_distance[0], spawn_distance[1])
+		next_spawn_x += spawn_information.pipe_pair_distance
 		spawn(next_spawn_x)
 
-		
-func spawn(position: int):
-	print("spawn to:" ,position)
-	
+func get_spawn_info():
 	var spawn_information = DifficultyManager.get_next_spawn_information()
 	if !spawn_information:
 		print("no spawn information found for distance:", player_distance)
 		return
+	return spawn_information
+		
+func spawn(position: int):
+	print("spawn to:" ,position)
+	
+	var spawn_information = get_spawn_info()
+	var pipe_gap = spawn_information.pipe_gap
+	var gap_y = spawn_information.pipe_gap_y
 
-	var type = spawn_information.type
-	var pipe_pair_config = spawn_information.pipe_pair_config
-	var spawn_config = spawn_information.spawn_config
-
-	match type:
-		DifficultyManager.SpawnType.ENEMY_ONLY:
-			print("spawn enemy only")
-			create_enemy(position, spawn_config)
-		DifficultyManager.SpawnType.PIPE:
-			print("spawn pipe only")
-			create_pipe_pair(pipe_pair_config,position)
-		DifficultyManager.SpawnType.PIPE_WITH_ENEMY:
-			print("spawn pipe with enemy only")
-			var pipe_pair = create_pipe_pair(pipe_pair_config,position)
-			create_enemy(position,spawn_config, pipe_pair.enemy_marker)
-		_:
-			print("type not matched", type)
+	create_pipe_pair(pipe_gap, gap_y, position)
 
 	
-func create_pipe_pair(pipe_pair_config, position:int):
+func create_pipe_pair(pipe_gap:int, gap_y:int, position:int):
 	var pipe_pair = pipe_pair_scene.instantiate() as PipePair
 	pipe_pair.global_position.x = position
-	pipe_pair.gap_height_min = pipe_pair_config.gap_height_range[0]
-	pipe_pair.gap_height_max = pipe_pair_config.gap_height_range[1]
-	pipe_pair.gap_padding = pipe_pair_config.gap_padding
+	pipe_pair.gap_height = pipe_gap
+	pipe_pair.gap_y = gap_y
 	pipes_container.add_child(pipe_pair)
 	return pipe_pair
 	

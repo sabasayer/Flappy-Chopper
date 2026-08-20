@@ -1,6 +1,6 @@
 class_name PipePair extends Node2D
 
-@export var gap_height_min: int = 200
+@export var gap_height_min: int = 100
 @export var gap_height_max: int = 400
 @export var gap_height: int
 @export var gap_y: int

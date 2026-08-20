@@ -14,79 +14,6 @@ const PIPE_PAIR_GAP_SETTING_BY_DISTANCE = {
 	15000: { 'gap_height_range': [200, 230], 'gap_padding': 100 },
 }
 
-const SPAWN_CONFIG_BY_DISTANCE = {
-	0: {
-		'spawn_distance': [220, 360],
-		'enemy_health': 1,
-		'enemy_can_move': false,
-		'spawn_type_percentage': {
-			100: SpawnType.PIPE
-		},
-	},
-	5000: {
-		'spawn_distance': [180, 300],
-		'enemy_health': 1,
-		'enemy_can_move': false,
-		'spawn_type_percentage': {
-			100: SpawnType.PIPE
-		},
-	},
-	10000: {
-		'spawn_distance': [140, 150],
-		'enemy_health': 1,
-		'enemy_can_move': false,
-		'spawn_type_percentage': {
-			100: SpawnType.PIPE
-		},
-	},
-	20000: {
-		'spawn_distance': [120, 130],
-		'enemy_health': 1,
-		'enemy_can_move': false,
-		'spawn_type_percentage': {
-			100: SpawnType.PIPE
-		},
-	},
-	#1500: {
-		#'spawn_distance': [220, 360],
-		#'enemy_health': 1,
-		#'enemy_can_move': false,
-		#'spawn_type_percentage': {
-			#85: SpawnType.PIPE,
-			#15: SpawnType.ENEMY_ONLY
-		#}
-	#},
-	#2800: {
-		#'spawn_distance': [220, 360],
-		#'enemy_health': 1,
-		#'enemy_can_move': false,
-		#'spawn_type_percentage': {
-			#65: SpawnType.PIPE,
-			#20: SpawnType.ENEMY_ONLY,
-			#15: SpawnType.PIPE_WITH_ENEMY
-		#}
-	#},
-	#4500: {
-		#'spawn_distance': [160, 280],
-		#'enemy_health': 2,
-		#'enemy_can_move': false,
-		#'spawn_type_percentage': {
-			#50: SpawnType.PIPE,
-			#20: SpawnType.ENEMY_ONLY,
-			#30: SpawnType.PIPE_WITH_ENEMY
-		#}
-	#},
-	#6500: {
-		#'spawn_distance': [140, 260],
-		#'enemy_health': 2,
-		#'enemy_can_move': true,
-		#'spawn_type_percentage': {
-			#30: SpawnType.PIPE,
-			#15: SpawnType.ENEMY_ONLY,
-			#55: SpawnType.PIPE_WITH_ENEMY
-		#}
-	#}
-}
 
 var player: Player:
 	get():
@@ -109,56 +36,35 @@ var current_pipe_pair_config:
 	get():
 		return get_current_config_by_distance(PIPE_PAIR_GAP_SETTING_BY_DISTANCE)
 
-var current_spawn_type_config:
-	get():
-		return get_current_config_by_distance(SPAWN_CONFIG_BY_DISTANCE)
-
-var curent_spawn_distance: Array:
-	get():
-		return current_spawn_type_config.spawn_distance
+func get_multiplier() -> float:
+	var multiplier := player_distance / 1000
+	return max(multiplier,1.0)
+	
+func get_base_distance() -> int:
+	var min_val = 300
+	var max_val = 350
+	return randi_range(min_val,max_val)
+	
+func get_base_gap() -> int:
+	var min_val = 200
+	var max_val = 250
+	return randi_range(min_val,max_val)
 
 func get_next_spawn_information():
-	var pipe_pair_config = DifficultyManager.current_pipe_pair_config
-	var spawn_config = DifficultyManager.current_spawn_type_config
+	var multiplier := get_multiplier()
+	var base_distance := get_base_distance()
+	var base_gap := get_base_gap()
 	
-	if !pipe_pair_config: 
-		print("no pipe pair config found for distance:", player_distance)
-		return
+	var calculated_distance = base_distance - ( 10 * multiplier)
+	var calculated_gap = base_gap - ( 2 * multiplier )
 	
-	if !spawn_config: 
-		print("no spawn config found for distance:", spawn_config)
-		return
-		
-	var spawn_types = spawn_config.spawn_type_percentage as Dictionary[int,DifficultyManager.SpawnType]
+	GlobalLogger.log_on_change_value("calculated_distance",calculated_distance)
+	GlobalLogger.log_on_change_value("calculated_gap",calculated_gap)
 	
-	if !spawn_types: 
-		print("no spawn type found for spawn config:", spawn_types)
-		return
-		
-	var type = get_spawn_type(spawn_types)
+	var gap_y = randi_range(100,400)
 	
-	if type == null:
-		return
-
 	return {
-		'type': type,
-		'pipe_pair_config': pipe_pair_config,
-		'spawn_config': spawn_config
+		"pipe_pair_distance": max( 170 ,calculated_distance ),
+		"pipe_gap": max( 100, calculated_gap ),
+		"pipe_gap_y": gap_y
 	}
-
-
-func get_spawn_type(spawn_types):
-	var type_percentage = randi_range(0,100)
-	
-	var type
-	for percentage in spawn_types:
-		if percentage >= type_percentage:
-			type = spawn_types[percentage]
-			return type
-		else:
-			type_percentage -= percentage
-			 
-	if type == null:
-		print("no type found for the percentage: ", type_percentage)
-	
-	return type
