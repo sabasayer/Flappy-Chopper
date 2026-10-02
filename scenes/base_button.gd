@@ -37,7 +37,7 @@ func animate():
 	if tween and tween.is_running():
 		tween.kill()
 	
-	tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_parallel(true)
+	tween = create_tween().set_ignore_time_scale(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_parallel(true)
 	tween.tween_property(self,"scale", Vector2(1.1,1.2),0.35)
 	tween.tween_property(self,"rotation", deg_to_rad(10),0.1)
 	tween.tween_property(self,"rotation", 0, 0.1).set_delay(0.1)
@@ -46,7 +46,7 @@ func reset():
 	if tween and tween.is_running():
 		tween.kill()
 	
-	tween = create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_parallel(true)
+	tween = create_tween().set_ignore_time_scale(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT).set_parallel(true)
 	tween.tween_property(self,"scale", Vector2.ONE,0.35)
 	tween.tween_property(self,"rotation", 0, 0.1).set_delay(0.1)
 

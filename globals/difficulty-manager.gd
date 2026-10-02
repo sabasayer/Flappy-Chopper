@@ -1,5 +1,11 @@
 extends Node
 
+const MIN_PIPE_PAIR_DISTANCE :int = 100
+
+# 2 pipe pair should have fair enough difference on their gap
+# So player can be able to react and pass through
+
+const MAX_CONSEQUENT_PIPE_PAIR_GAP_DIFF :int = 200
 
 enum SpawnType {
 	PIPE,
@@ -14,6 +20,7 @@ const PIPE_PAIR_GAP_SETTING_BY_DISTANCE = {
 	15000: { 'gap_height_range': [200, 230], 'gap_padding': 100 },
 }
 
+var last_gap_y
 
 var player: Player:
 	get():
@@ -56,15 +63,22 @@ func get_next_spawn_information():
 	var base_gap := get_base_gap()
 	
 	var calculated_distance = base_distance - ( 10 * multiplier)
-	var calculated_gap = base_gap - ( 2 * multiplier )
+	var pipe_gap = base_gap - ( 2 * multiplier )
 	
 	GlobalLogger.log_on_change_value("calculated_distance",calculated_distance)
-	GlobalLogger.log_on_change_value("calculated_gap",calculated_gap)
+	GlobalLogger.log_on_change_value("pipe_gap",pipe_gap)
 	
 	var gap_y = randi_range(100,400)
 	
+	if last_gap_y != null:
+		var diff = abs(last_gap_y - gap_y)
+		if diff > MAX_CONSEQUENT_PIPE_PAIR_GAP_DIFF:
+			gap_y -= diff - MAX_CONSEQUENT_PIPE_PAIR_GAP_DIFF
+	
+	var pipe_pair_distance = max( MIN_PIPE_PAIR_DISTANCE ,calculated_distance )
+	
 	return {
-		"pipe_pair_distance": max( 170 ,calculated_distance ),
-		"pipe_gap": max( 100, calculated_gap ),
+		"pipe_pair_distance":pipe_pair_distance,
+		"pipe_gap": pipe_gap,
 		"pipe_gap_y": gap_y
 	}

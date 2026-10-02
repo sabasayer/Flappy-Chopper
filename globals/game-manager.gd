@@ -114,6 +114,10 @@ func unpause():
 	game_state = GAME_STATE.PLAYING
 
 func go_to_main_menu():
+	if pause_menu_instance:
+		pause_menu_instance.queue_free()
+		pause_menu_instance = null
+	Engine.time_scale = 1.0
 	var res = get_tree().change_scene_to_packed(main_menu)
 	if res == Error.OK:
 		game_state = GAME_STATE.MAIN_MENU

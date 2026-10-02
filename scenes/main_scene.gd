@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var start_game: ButtonWithSound = $CanvasLayer/VBoxContainer/StartGame
+@onready var start_game: ButtonWithSound = %StartGame
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:

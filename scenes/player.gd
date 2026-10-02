@@ -91,7 +91,7 @@ func run_shoot_particles() -> void:
 	shoot_particles.restart()
 	shoot_particles.emitting = true
 
-func get_size():
+func get_size() -> Vector2:
 	return (collision_shape_2d.shape as RectangleShape2D).size
 
 func state_to_hurt(hit_info:HitInfo):

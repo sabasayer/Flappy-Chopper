@@ -11,8 +11,8 @@
 script = ExtResource("1_ny7m6")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=551525846]
-position = Vector2(582.5, 325)
-scale = Vector2(4.4465647, 2.6177607)
+position = Vector2(638.75006, 361)
+scale = Vector2(4.887404, 2.7876446)
 texture = ExtResource("6_5jg82")
 region_enabled = true
 region_rect = Rect2(1, 989, 262, 259)
@@ -57,7 +57,7 @@ text = "exit to main menu"
 metadata/_edit_use_anchors_ = true
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2111307762]
-position = Vector2(582, 230)
+position = Vector2(623, 224)
 texture = ExtResource("6_5jg82")
 region_enabled = true
 region_rect = Rect2(1, 837, 410, 70)

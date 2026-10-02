@@ -1,6 +1,7 @@
 class_name PipePair extends Node2D
 
-@export var gap_height_min: int = 100
+const GAP_MARGIN_FOR_PLAYER: int = 20
+
 @export var gap_height_max: int = 400
 @export var gap_height: int
 @export var gap_y: int
@@ -15,6 +16,14 @@ var scored = false
 var player: Player:
 	get():
 		return get_tree().get_first_node_in_group("player") as Player 
+
+var player_height: float:
+	get():
+		return player.get_size().y
+		
+var gap_height_min: float:
+	get():
+		return player_height + GAP_MARGIN_FOR_PLAYER
 
 var screen_height:
 	get():
@@ -31,8 +40,13 @@ func setup(gap_height: int = 0, gap_y: int = 0):
 	if !gap_y:
 		gap_y = randi_range(gap_padding,gap_y_max)
 		
+	print("gap_height_min: ",gap_height_min)
+		
 	if !gap_height:
 		gap_height = randi_range(gap_height_min, gap_height_max)
+		
+	gap_height = max(gap_height, gap_height_min)
+	gap_height_min = min(gap_height, gap_height_max)
 		
 	if gap_y < gap_padding:
 		gap_y = gap_padding

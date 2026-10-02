@@ -45,7 +45,7 @@ pipe_scene = ExtResource("4_pipe")
 position = Vector2(93, 331)
 
 [node name="Ground" type="Area2D" parent="." unique_id=1789624968]
-position = Vector2(239, 812)
+position = Vector2(239, 790)
 
 [node name="GroundCollisionShape" type="CollisionShape2D" parent="Ground" unique_id=735315508]
 shape = SubResource("WorldBoundaryShape2D_uar5l")
@@ -55,7 +55,7 @@ metadata/_edit_lock_ = true
 z_index = -1
 scale = Vector2(1.5, 1.5)
 scroll_scale = Vector2(0.1, 0.1)
-scroll_offset = Vector2(798, 332)
+scroll_offset = Vector2(-399, 359)
 repeat_size = Vector2(799, 0)
 repeat_times = 3
 
@@ -72,6 +72,7 @@ repeat_size = Vector2(806, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=13427312]
+position = Vector2(49, 52)
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 72, 808, 70)
@@ -91,6 +92,7 @@ repeat_size = Vector2(806, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1824310179]
+position = Vector2(-16, 71)
 texture = ExtResource("3_w3lvy")
 region_enabled = true
 region_rect = Rect2(0, 285.81943, 807, 68.18057)
@@ -106,7 +108,7 @@ offset = Vector2(300, 0)
 limit_left = -200
 limit_top = 0
 limit_right = 10000001
-limit_bottom = 648
+limit_bottom = 720
 script = ExtResource("4_58ry1")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Player" unique_id=266667792]
@@ -119,7 +121,6 @@ process_material = SubResource("ParticleProcessMaterial_twipv")
 [node name="EnemyContainer" type="Node2D" parent="." unique_id=263046732]
 
 [node name="Spawner" parent="." unique_id=1655840986 node_paths=PackedStringArray("pipes_container", "enemy_container") instance=ExtResource("5_juwml")]
-visible = false
 pipes_container = NodePath("../PipeContainer")
 enemy_container = NodePath("../EnemyContainer")
 
